@@ -55,13 +55,30 @@
 2. 如果采取https读取的方式，某些数据的读取权重高达20，甚至是30，由此推演出需要多IP，进行分布式读取才能具备更高频率，而这个时候，单个IP的成本价格即成了需要考虑的因素，阿里云抢占式服务器的成本一个月不足20人民币，在综合的性价比考虑后，我方选择了日本阿里云。
 
 
+## config.py
 
-wsServer.cpp
+通用配置，需要自行申请飞书api key等，亦可简单的替换成其他提醒工具
 
-这个是撮合服务器的源文件，所有的数据都会汇入这里，并简单的根据更新时间戳进行筛选，使用以下命令行可编译成可执行文件
+## commonFunction.py
+
+通用方法
+
+## updateSymbol/trade_symbol.sql
+
+在数据库中生成trade_symbol表格，该表格将控制系统可执行交易的交易对信息，这也是该系统给唯一需要进行数据库储存和处理的地方，你也可以改造为录入文件中并从文件中读取
+
+## updateSymbol/trade_symbol.sql
+
+## wsServer.cpp
+
+撮合服务器
+
+所有的数据都会汇入这里，并简单的根据更新时间戳进行筛选，使用以下命令行可编译成可执行文件
 
 g++ wsServer.cpp -o wsServer.out -lboost_system
 
-oneMinKlineToWs.py
+## dataPy/oneMinKlineToWs.py
 
-1分钟的K线数据读取程序，每次读取前会从
+1分钟的K线数据读取程序
+
+每次读取前会从ws服务器拿到一个交易对编号，拿取的同时，ws服务器会对编号执行 +1的操作，确保分布式架构的时候，每台扩展oneMinKlineToWs都可以按照顺序读取交易对的kline数据。
