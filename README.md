@@ -38,6 +38,43 @@
 
 # 模块详细解析
 
+该项目的最小化开启需求为 一台web服务器，一台ws服务器，一台tick数据读取服务器，一台one min kline数据读取服务器，以及一台交易服务器
+
+你可以根据自己的需求，扩展相关的服务器，例如需要 15 m 的kline，需要trades等等，只需要在这个基础上增加即可。
+
+我方实盘的项目运行配置为
+
+其中一台 wsPosition 服务器，用于ws读取币安的仓位和余额数据
+
+一台positionRisk服务器，用于读取/fapi/v2/positionRisk接口，该服务器和wsPosition，makerStopLoss，getBinancePosition具备类似功能，之所以设计多种交叉相同功能的服务器，是为了最大限度的防止风险，以下不再重述
+
+一台makerStopLoss服务器，用于从getBinancePosition服务器读取仓位信息后，读取单独的挂单信息，然后预设止损单，之所以与getBinancePosition服务器进行拆分，是因为读取挂单需要的权重较高，拆分长两个ip可以更高频率的进行操作
+
+一台getBinancePosition服务器，用于读取/fapi/v2/account接口
+
+一台commission服务器，用于记录流水信息
+
+一台checkTimeoutOrders服务器，用于读取/fapi/v1/openOrders接口，查询全部挂单，然后取消超过一定时间的挂单，或者进行一些额外的操作，例如挂单三秒没被吃，则转换成take订单等等
+
+一台cancelServer服务器，本质上也是web server服务器，运行webServer文件，用于取消订单
+
+一台webServer服务器，本质上也是web server服务器，运行webServer文件，用于大部分程序一开始读取交易对等等
+
+两台oneMinKlineToWs服务器，用于低频率读取一分钟线的kline
+
+两台volAndRate服务器，用于读取交易量数据做分析并提供给其他服务器
+
+五台specialOneMinKlineToWs 服务器，用于高频率读取一分钟线的kline
+
+五台tickToWs服务器，用于读取 tick群信息
+
+一台ws服务器，用于C++的信息戳合服务器
+
+以及五台交易服务器
+
+合计28台服务器，实际上由于只需要选用最低配置的抢占式服务器，成本一个月不足2000元人民币，但是基本可以满足大部分量化的风控和延迟需求
+
+
 在该项目里，一个单独的模块，需要一台服务器一个IP单独运行，目前基本已经将单模块的https读取频率调教到币安允许的最大值。
 
 此处需要说明的是，这里都是以阿里云日本为例子，币安的服务器在亚马逊云。
