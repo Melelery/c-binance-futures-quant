@@ -6,7 +6,7 @@
 
 如果你愿意详细阅读该readme的所有信息，尤其是 [模块详细解析](#模块详细解析) ，那么他同时也会是一部关于币安合约的交易风控，设计架构的经验理解历史，总结了几乎本人所有成功和失败的经验，希望能让后人少踩些坑
 
-# 最大优势
+# 优势
 
 低成本，高效率，简单实现是这套系统的三个优势
 
@@ -16,7 +16,7 @@
 
 大量的分布式架构实现更快的速度，并且可以根据个人需求，自由伸缩的调控服务器数量来实现成本和性能的平衡
 
-# 基础架构
+# 架构
 
 该系统通过一个C++服务器作为主撮合服务器，大量的可伸缩调整的分布式python服务器作为数据采集服务器。
 
@@ -85,7 +85,7 @@ g++ wsServer.cpp -o wsServer.out -lboost_system
 
 这里只展示tick，oneMinKlineToWs，specialOneMinKlineToWs三个数据录入程序的使用，其他程序亦同理
 
-该程序可以简单快速的发布分布式运行的程序，到符合命名规则的服务器上云运行和销毁。
+该程序可以简单快速的发布分布式运行的程序，到所有符合命名规则的服务器上云运行和销毁。
 
 使用前需要将阿里云服务器进行统一命名，如tickToWs_1,tickToWs_2...
 
@@ -97,6 +97,9 @@ g++ wsServer.cpp -o wsServer.out -lboost_system
 
 ## dataPy/oneMinKlineToWs.py
 
+该程序属于分布式运行架构，只需要标准化命名即可无限扩展服务器降低延迟
+![image](https://github.com/Melelery/c-binance-future-quant/assets/139823868/801409a3-25b7-41c8-b795-d7aa0efd0fe6)
+
 缓更新的1分钟的K线数据读取程序
 
 每次读取前会从ws服务器拿到一个交易对编号，拿取的同时，ws服务器会对编号执行 +1的操作，确保分布式架构的时候，每台扩展oneMinKlineToWs都可以按照顺序读取交易对的kline数据。
@@ -104,6 +107,10 @@ g++ wsServer.cpp -o wsServer.out -lboost_system
 其他时间间隔的k线，如5分钟 ，15分钟，1小时等等读取和打入ws服务器的过程亦同理，只需要简单的替换文件中的参数即可实现，所以此处不再列出
 
 ## dataPy/specialOneMinKlineToWs.py
+
+该程序属于分布式运行架构，只需要标准化命名即可无限扩展服务器降低延迟
+![Uploading image.png…]()
+
 
 急速更新的1分钟的K线数据读取程序
 
