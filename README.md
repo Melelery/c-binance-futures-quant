@@ -191,4 +191,40 @@ tick数据读取程序会读取阿里云上，所有的tick服务器数量，然
 
 ## 关键操作部分
 
-### dataPy/useData.py
+### binanceOrdersRecord.py
+
+记录orders信息
+
+### binanceTradesRecord.py
+
+记录trades信息
+
+### checkTimeoutOrders.py
+
+检查是否有超时订单并取消，同时可以附加一些交易操作，如maker挂单超过多少秒没有成交则按比例转化成take订单
+
+### commission.py
+
+记录所有资金流水
+
+### getBinancePosition.py
+
+通过/fapi/v2/account接口获取币安仓位和余额信息，并且上传到本服务器的80端口，以及ws服务，上传到ws服务器的信息，会与positionRisk和wsPosition拿到信息的更新时间戳进行对比，选择最新的信息发送给交易服务器
+
+### positionRisk.py
+
+通过/fapi/v2/positionRisk接口获取币安仓位和余额信息，其他同上
+
+### getBinancePosition.py
+
+通过websocket接口获取币安仓位和余额信息，其他同上
+
+### makerStopLoss
+
+读取仓位信息和挂单信息后，在开仓的同时挂出最大止损单
+
+
+
+
+
+
