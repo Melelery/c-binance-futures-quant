@@ -79,6 +79,22 @@
 
 g++ wsServer.cpp -o wsServer.out -lboost_system
 
+## dataPy/uploadDataPy
+
+将程序从一个阿里云的主控服务器，上传到各个对应的阿里云服务器，运行，然后销毁。
+
+这里只展示tick，oneMinKlineToWs，specialOneMinKlineToWs三个数据录入程序的使用，其他程序亦同理
+
+该程序可以简单快速的发布分布式运行的程序，到符合命名规则的服务器上云运行和销毁。
+
+使用前需要将阿里云服务器进行统一命名，如tickToWs_1,tickToWs_2...
+
+然后调用get_aliyun_private_ip_arr_by_name函数搜索对应字符段的阿里云服务器的私网地址，然后上传，执行，并且在三秒后判断有没有在正常运行
+
+其后会进行覆盖销毁，防止机密数据泄露，只保留程序在内存运行
+
+由于是私网地址的操作，需要在同地域的阿里云服务器上执行该程序
+
 ## dataPy/oneMinKlineToWs.py
 
 缓更新的1分钟的K线数据读取程序
