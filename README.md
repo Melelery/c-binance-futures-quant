@@ -42,13 +42,15 @@
 
 你可以根据自己的需求，扩展相关的服务器，例如需要 15 m 的kline，需要trades等等，只需要在这个基础上增加即可。
 
-我方实盘的项目运行配置为
+我方实盘的项目运行环境为Ubuntu 22.04 64位，Python 3.10.6，由于项目使用的全部库和包都是官方或者热门的，在google可以查找到安装方式，此处不再累述如何安装环境，如果需要最简启动方案，可邮件 c.binance.quant@gmail.com 联系我方，直接共享系统镜像到你方阿里云账号，收取100 USDT的技术费用
+
+我方具体服务器配置为
 
 一台 wsPosition 服务器，用于通过ws的方式读取币安的仓位和余额数据，汇入ws数据撮合服务器
 
 一台positionRisk服务器，用于读取/fapi/v2/positionRisk接口，通过该接口获取仓位信息并实时判断损失，以便于及时止损，该服务器和wsPosition，makerStopLoss，getBinancePosition具备类似功能，之所以设计多种交叉相同功能的服务器，是为了最大限度的防止风险，在币安的某一接口出现延迟的情况下，系统依然可以健壮的运行，以下不再重述
 
-一台makerStopLoss服务器，用于从getBinancePosition服务器读取仓位信息后，读取单独的挂单信息，然后预设止损单，之所以与getBinancePosition服务器进行拆分，是因为读取挂单需要的权重较高，拆分长两个ip可以更高频率的进行操作
+一台makerStopLoss服务器，用于从getBinancePosition服务器读取仓位信息后，读取单独的挂单信息，然后预设止损单，之所以与getBinancePosition服务器进行拆分，是因为读取挂单需要的权重较高，拆分成两个ip可以更高频率的进行操作
 
 一台getBinancePosition服务器，用于读取/fapi/v2/account接口，获得仓位信息和余额后汇入ws数据撮合服务器
 
