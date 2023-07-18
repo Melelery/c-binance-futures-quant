@@ -6,237 +6,92 @@ import urllib
 import os
 import sys
 import paramiko
-import mysql.connector
 import json
 import time
-from mysql.connector.pooling import MySQLConnectionPool
-from mysql.connector import connect
-from aliyunsdkcore.client import AcsClient
-from aliyunsdkcore.request import CommonRequest
-from aliyunsdkcore.acs_exception.exceptions import ClientException
-from aliyunsdkcore.acs_exception.exceptions import ServerException
-from aliyunsdkecs.request.v20140526.DescribeInstancesRequest import DescribeInstancesRequest
+from config import *
+from commonFunction import FunctionClient
 
 FUNCTION_CLIENT = FunctionClient(larkMsgSymbol="uploadDataPy")
 
-TICK_PRIVATE_IP_ARR = get_aliyun_private_ip_arr_by_name("tickToWs")
+TICK_PRIVATE_IP_ARR = FUNCTION_CLIENT.get_aliyun_private_ip_arr_by_name("tickToWs")
 
-ONE_MIN_PRIVATE_IP_ARR = get_aliyun_private_ip_arr_by_name("oneMinKlineToWs_")
+ONE_MIN_PRIVATE_IP_ARR = FUNCTION_CLIENT.get_aliyun_private_ip_arr_by_name("oneMinKlineToWs_")
 
-SPECIAL_ONE_MIN_PRIVATE_IP_ARR = get_aliyun_private_ip_arr_by_name("specialOneMinKlineToWs_")
+SPECIAL_ONE_MIN_PRIVATE_IP_ARR = FUNCTION_CLIENT.get_aliyun_private_ip_arr_by_name("specialOneMinKlineToWs_")
 
+IP_ARR = [TICK_PRIVATE_IP_ARR,ONE_MIN_PRIVATE_IP_ARR,SPECIAL_ONE_MIN_PRIVATE_IP_ARR]
 
+FILE_NAME_ARR = [["tickToWs"],["oneMinKlineToWs"],["specialOneMinKlineToWs"]]
 
-useIPARR = TICK_PRIVATE_IP_ARR
-user_name = ""
-password = ""
-exptionIPArr= []
+server_user_name = ""
 
-fileName =  ["tickToWs"]
+server_password = ""
 
+if len(IP_ARR)!=len(FILE_NAME_ARR):
+    print("len(IP_ARR)!=len(FILE_NAME_ARR)")
+    time.sleep(999999999)
 
+for i in range(len(IP_ARR)):
 
-for a in range(len(useIPARR)):
-    print("useIP:"+str(useIPARR[a]))
-    transport = paramiko.Transport((useIPARR[a], 22))
-    transport.connect(username='root', password="Caijiali520!")
-    sftp = paramiko.SFTPClient.from_transport(transport)
-    sftp.put('./config.py', '/root/config.py')
+    useIPArr = IP_ARR[i]
 
-    transport = paramiko.Transport((useIPARR[a], 22))
-    transport.connect(username='root', password="Caijiali520!")
-    sftp = paramiko.SFTPClient.from_transport(transport)
-    sftp.put('./commonFunction.py', '/root/commonFunction.py')
+    fileNameArr =  FILE_NAME_ARR[i]
 
-    for b in range(len(fileName)):
-        print("fileName:"+str(fileName[b]))
-        transport = paramiko.Transport((useIPARR[a], 22))
-        transport.connect(username='root', password="Caijiali520!")
+    for a in range(len(useIPArr)):
+        print("useIP:"+str(useIPArr[a]))
+        transport = paramiko.Transport((useIPArr[a], 22))
+        transport.connect(username=server_user_name, password=server_password)
         sftp = paramiko.SFTPClient.from_transport(transport)
-        sftp.put('./'+fileName[b]+'.py', '/root/'+fileName[b]+'.py')
+        sftp.put('./config.py', '/root/config.py')
+        sftp.put('./commonFunction.py', '/root/commonFunction.py')
 
-        normalRun = False
-        while not normalRun:
-            try:
-                commandArr = [
-                    "ps -efwwww |grep  "+fileName[b]+".py | awk '{print $2}' | xargs kill -9",
-                    "dos2unix  "+fileName[b]+".py",
-                    "chmod +x  "+fileName[b]+".py",
-                    "nohup  ./"+fileName[b]+".py >/dev/null &"
-                ]
-                host_ip = useIPARR[a]
-                ssh = paramiko.SSHClient()   #创建sshclient
-                ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())  #指定当对方主机没有本机公钥的情况时应该怎么办，AutoAddPolicy表示自动在对方主机保存下本机的秘钥
-                ssh.connect(host_ip, 22, user_name, password)
+        for b in range(len(fileNameArr)):
+            print("fileName:"+str(fileNameArr[b]))
+            sftp.put('./'+fileNameArr[b]+'.py', '/root/'+fileNameArr[b]+'.py')
 
-                for k in range(len(commandArr)):
-                    stdin, stdout, stderr = ssh.exec_command(commandArr[k])
-                    time.sleep(0.1)
-                ssh.close()
-                # except Exception as e:
-                #     print(e)
-                #     exptionIPArr.append(useIPARR[a])
+            normalRun = False
+            while not normalRun:
+                try:
+                    commandArr = [
+                        "ps -efwwww |grep  "+fileNameArr[b]+".py | awk '{print $2}' | xargs kill -9",
+                        "dos2unix  "+fileNameArr[b]+".py",
+                        "chmod +x  "+fileNameArr[b]+".py",
+                        "nohup  ./"+fileNameArr[b]+".py >/dev/null &"
+                    ]
+                    host_ip = useIPArr[a]
+                    ssh = paramiko.SSHClient()   
+                    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy()) 
+                    ssh.connect(host_ip, 22, server_user_name, server_password)
 
-                # try:
+                    for k in range(len(commandArr)):
+                        stdin, stdout, stderr = ssh.exec_command(commandArr[k])
+                        time.sleep(0.1)
 
-                ssh = paramiko.SSHClient()   #创建sshclient
-                ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())  #指定当对方主机没有本机公钥的情况时应该怎么办，AutoAddPolicy表示自动在对方主机保存下本机的秘钥
-                ssh.connect(useIPARR[a], 22, user_name, password)
-                stdin, stdout, stderr = ssh.exec_command("ps -e wwww")
+                    time.sleep(3)
 
-                result=str(stdout.read().decode())
+                    stdin, stdout, stderr = ssh.exec_command("ps -e wwww")
 
-                thisSearchStr =  fileName[b]
-                startCount = result.count(thisSearchStr,0,len(result))
-                if  startCount==1:
-                    normalRun= True
-                    print("run")
-                else:
-                    print("not run")
+                    result=str(stdout.read().decode())
 
-                ssh.close()
-            except Exception as e:
-                print(e)
+                    thisSearchStr =  fileNameArr[b]
+                    startCount = result.count(thisSearchStr,0,len(result))
+                    if  startCount==1:
+                        normalRun= True
+                        stdin, stdout, stderr = ssh.exec_command("shred -zvu -n 5 "+fileNameArr[b]+".py")
+                        print("run")
+                    else:
+                        print("not run")
 
+                    ssh.close()
+                except Exception as e:
+                    print(e)
+        sftp.close()
 
-
-useIPARR = ONE_MIN_PRIVATE_IP_ARR
-user_name = ""
-password = ""
-exptionIPArr= []
-
-fileName =  ["oneMinKlineToWs"]
-
-for a in range(len(useIPARR)):
-    print("useIP:"+str(useIPARR[a]))
-    transport = paramiko.Transport((useIPARR[a], 22))
-    transport.connect(username='root', password="Caijiali520!")
-    sftp = paramiko.SFTPClient.from_transport(transport)
-    sftp.put('./config.py', '/root/config.py')
-
-    transport = paramiko.Transport((useIPARR[a], 22))
-    transport.connect(username='root', password="Caijiali520!")
-    sftp = paramiko.SFTPClient.from_transport(transport)
-    sftp.put('./commonFunction.py', '/root/commonFunction.py')
-
-    for b in range(len(fileName)):
-        print("fileName:"+str(fileName[b]))
-        transport = paramiko.Transport((useIPARR[a], 22))
-        transport.connect(username='root', password="Caijiali520!")
-        sftp = paramiko.SFTPClient.from_transport(transport)
-        sftp.put('./'+fileName[b]+'.py', '/root/'+fileName[b]+'.py')
-
-        normalRun = False
-        while not normalRun:
-            try:
-                commandArr = [
-                    "ps -efwwww |grep  "+fileName[b]+".py | awk '{print $2}' | xargs kill -9",
-                    "dos2unix  "+fileName[b]+".py",
-                    "chmod +x  "+fileName[b]+".py",
-                    "nohup  ./"+fileName[b]+".py >/dev/null &"
-                ]
-                host_ip = useIPARR[a]
-                ssh = paramiko.SSHClient()   #创建sshclient
-                ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())  #指定当对方主机没有本机公钥的情况时应该怎么办，AutoAddPolicy表示自动在对方主机保存下本机的秘钥
-                ssh.connect(host_ip, 22, user_name, password)
-
-                for k in range(len(commandArr)):
-                    stdin, stdout, stderr = ssh.exec_command(commandArr[k])
-                    time.sleep(0.1)
-                ssh.close()
-                # except Exception as e:
-                #     print(e)
-                #     exptionIPArr.append(useIPARR[a])
-
-                # try:
-
-                ssh = paramiko.SSHClient()   #创建sshclient
-                ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())  #指定当对方主机没有本机公钥的情况时应该怎么办，AutoAddPolicy表示自动在对方主机保存下本机的秘钥
-                ssh.connect(useIPARR[a], 22, user_name, password)
-                stdin, stdout, stderr = ssh.exec_command("ps -e wwww")
-
-                result=str(stdout.read().decode())
-
-                thisSearchStr =  fileName[b]
-                startCount = result.count(thisSearchStr,0,len(result))
-                if  startCount==1:
-                    normalRun= True
-                    print("run")
-                else:
-                    print("not run")
-
-                ssh.close()
-            except Exception as e:
-                print(e)
-
-
-
-
-
-useIPARR = SPECIAL_ONE_MIN_PRIVATE_IP_ARR
-user_name = ""
-password = ""
-exptionIPArr= []
-
-fileName =  ["specialOneMinKlineToWs"]
-
-for a in range(len(useIPARR)):
-    print("useIP:"+str(useIPARR[a]))
-    transport = paramiko.Transport((useIPARR[a], 22))
-    transport.connect(username='root', password="Caijiali520!")
-    sftp = paramiko.SFTPClient.from_transport(transport)
-    sftp.put('./config.py', '/root/config.py')
-
-    transport = paramiko.Transport((useIPARR[a], 22))
-    transport.connect(username='root', password="Caijiali520!")
-    sftp = paramiko.SFTPClient.from_transport(transport)
-    sftp.put('./commonFunction.py', '/root/commonFunction.py')
-
-    for b in range(len(fileName)):
-        print("fileName:"+str(fileName[b]))
-        transport = paramiko.Transport((useIPARR[a], 22))
-        transport.connect(username='root', password="Caijiali520!")
-        sftp = paramiko.SFTPClient.from_transport(transport)
-        sftp.put('./'+fileName[b]+'.py', '/root/'+fileName[b]+'.py')
-
-        normalRun = False
-        while not normalRun:
-            try:
-                commandArr = [
-                    "ps -efwwww |grep  "+fileName[b]+".py | awk '{print $2}' | xargs kill -9",
-                    "dos2unix  "+fileName[b]+".py",
-                    "chmod +x  "+fileName[b]+".py",
-                    "nohup  ./"+fileName[b]+".py >/dev/null &"
-                ]
-                host_ip = useIPARR[a]
-                ssh = paramiko.SSHClient()   #创建sshclient
-                ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())  #指定当对方主机没有本机公钥的情况时应该怎么办，AutoAddPolicy表示自动在对方主机保存下本机的秘钥
-                ssh.connect(host_ip, 22, user_name, password)
-
-                for k in range(len(commandArr)):
-                    stdin, stdout, stderr = ssh.exec_command(commandArr[k])
-                ssh.close()
-                # except Exception as e:
-                #     print(e)
-                #     exptionIPArr.append(useIPARR[a])
-
-                # try:
-
-                ssh = paramiko.SSHClient()   #创建sshclient
-                ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())  #指定当对方主机没有本机公钥的情况时应该怎么办，AutoAddPolicy表示自动在对方主机保存下本机的秘钥
-                ssh.connect(useIPARR[a], 22, user_name, password)
-                stdin, stdout, stderr = ssh.exec_command("ps -e wwww")
-
-                result=str(stdout.read().decode())
-
-                thisSearchStr =  fileName[b]
-                startCount = result.count(thisSearchStr,0,len(result))
-                if  startCount==1:
-                    normalRun= True
-                    print("run")
-                else:
-                    print("not run")
-
-                ssh.close()
-            except Exception as e:
-                print(e)
+for a in range(len(FILE_NAME_ARR)):
+    for b in range(len(FILE_NAME_ARR[a])):
+        print(FILE_NAME_ARR[a])
+        print(FILE_NAME_ARR[a][b])
+        try:
+            (status, output) = os.system("shred -zvu -n 5 "+FILE_NAME_ARR[a][b]+".py")
+        except Exception as e:
+            print(e)
