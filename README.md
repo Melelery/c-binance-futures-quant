@@ -228,7 +228,16 @@ tick数据在汇入ws服务器后，交易程序读取这部分主要用于修�
 
 ### commission.py
 
-记录所有资金流水，这个是最重要的数据，通过他可以计算出手续费，盈利，资金费用等等数据
+记录所有资金流水，这个是最重要的数据，通过他可以计算出手续费，盈利，资金费用等等数据，由于这里是流水的直接来源，我在这里还插入了一个风控控制
+
+for key in fourHoursProfitObj:
+    if fourHoursProfitObj[key]<=-150 or oneDayProfitObj[key]<=-1800:
+        banSymbolArr.append(key)
+
+if allOneDayProfit<=-3000:
+    banSymbolArr = ["ALL"]
+
+当读取到某个交易对四小时盈利小于150u或者24小时利润小于1800u时，会向ws服务器发送一个禁止交易的交易对列表，当所有交易对总利润小于-3000u时，则直接全部暂停交易
 
 ### getBinancePosition.py
 
