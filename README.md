@@ -196,11 +196,11 @@ tick数据读取程序会读取阿里云上，所有的tick服务器数量，然
 
 ### binanceOrdersRecord.py
 
-记录orders信息
+记录orders信息，方便后续分析，例如可以通过orders的记录分析出发出去的订单的总成交比例等等
 
 ### binanceTradesRecord.py
 
-记录trades信息
+记录trades信息，方便后续分析，例如可以通过trades计算出总交易量等等
 
 ### checkTimeoutOrders.py
 
@@ -208,7 +208,7 @@ tick数据读取程序会读取阿里云上，所有的tick服务器数量，然
 
 ### commission.py
 
-记录所有资金流水
+记录所有资金流水，这个是最重要的数据，通过他可以计算出手续费，盈利，资金费用等等数据
 
 ### getBinancePosition.py
 
@@ -218,7 +218,7 @@ tick数据读取程序会读取阿里云上，所有的tick服务器数量，然
 
 通过/fapi/v2/positionRisk接口获取币安仓位和余额信息，其他同上
 
-### getBinancePosition.py
+### wsPosition.py
 
 通过websocket接口获取币安仓位和余额信息，其他同上
 
