@@ -32,9 +32,7 @@ REQUEST_CLIENT = RequestClient(api_key=BINANCE_API_KEY_ARR[MACHINE_INDEX],secret
 
 STOP_LOSS_SYMBOL = "s"
 
-
 ORDER_ID_INDEX  = random.randint(1,100000)
-
 
 
 PRICE_DECIMAL_OBJ = {}
@@ -97,27 +95,6 @@ while not "BTCUSDT" in PRICE_DECIMAL_OBJ:
     updateSymbolInfo()
     time.sleep(1)
 
-def takeElemZero(elem):
-    return float(elem[0])
-
-
-def getFutureDepthBySymbol(symbol,limit):
-    response = {}
-    try:
-        url = "https://fapi.binance.com/fapi/v1/depth?symbol="+symbol+"&limit="+str(limit)
-        response = requests.request("GET", url,timeout=(0.5,0.5)).json()
-    except Exception as e:
-        try:
-            url = "https://fapi.binance.com/fapi/v1/depth?symbol="+symbol+"&limit="+str(limit)
-            response = requests.request("GET", url,timeout=(1,1)).json()
-        except Exception as e:
-            try:
-                url = "https://fapi.binance.com/fapi/v1/depth?symbol="+symbol+"&limit="+str(limit)
-                response = requests.request("GET", url,timeout=(2,2)).json()
-            except Exception as e:
-                print(e)
-    return response
-
 
 def cancelOrder(symbol,clientOrderId):
     global FUNCTION_CLIENT,REQUEST_CLIENT
@@ -135,24 +112,6 @@ def cancelOrder(symbol,clientOrderId):
                 FUNCTION_CLIENT.send_lark_msg_limit_one_min("【cancel order error】，"+symbol)
                 return False
     return True
-
-def getKline(symbol,interval,limit):
-    global FUNCTION_CLIENT
-    nowPrice = 0
-    klineDataArr = []
-    errorTime = 0
-    while len(klineDataArr)==0:
-        try:
-            url = "https://fapi.binance.com/fapi/v1/klines?symbol="+symbol+"&interval="+interval+"&limit="+str(limit)
-            klineDataArr = requests.request("GET", url,timeout=(0.5+errorTime*0.25,0.5+errorTime*0.25)).json()
-            klineDataArr.sort(key=takeElemZero,reverse=False)
-        except Exception as e:
-            errorTime = errorTime+1
-            if errorTime>10:
-                errorTime = 0
-                FUNCTION_CLIENT.send_lark_msg_limit_one_min("getKline error:"+str(e))
-            print(e)
-    return klineDataArr
 
 
 
@@ -276,12 +235,7 @@ POSITION_ARR = []
 
 def updatePosition():
     global POSITION_ARR,MACHINE_INDEX
-    dataStr = ""
-    if MACHINE_INDEX==0:
-        dataStr = FUNCTION_CLIENT.get_from_ws_a("E")
-    elif MACHINE_INDEX==1:
-        print("-----------")
-        dataStr = FUNCTION_CLIENT.get_from_ws_b("E")
+    dataStr = FUNCTION_CLIENT.get_from_ws_a("E")
 
     dataJson = json.loads(dataStr)
 
@@ -306,31 +260,8 @@ def getPositionInfoArrBySymbol(symbol):
 
 
 
-DAY_INFO_OBJ = {
-    "oneMonthHighPrice":0,
-    "oneMonthLowPrice":999999999,
-    "oneMonthHighIndex":-1,
-    "oneMonthLowIndex":-1,
-
-    "threeDaysHighPrice":0,
-    "threeDaysLowPrice":999999999,
-    "threeDaysHighIndex":-1,
-    "threeDaysLowIndex":-1,
-
-    
-    "oneDayHighPrice":0,
-    "oneDayLowPrice":999999999,
-    "oneDayHighIndex":-1,
-    "oneDayLowIndex":-1,
-    "oneDayWaveRate":0,
-
-    "updateTs":0
-}
-
-
-
 def checkAllStopLoss():
-    global FUNCTION_CLIENT,POSITION_ARR,PRICE_DECIMAL_OBJ,REQUEST_CLIENT,STOP_LOSS_SYMBOL,DAY_INFO_OBJ
+    global FUNCTION_CLIENT,POSITION_ARR,PRICE_DECIMAL_OBJ,REQUEST_CLIENT,STOP_LOSS_SYMBOL
 
     now = int(time.time()*1000)
 
@@ -351,7 +282,7 @@ def checkAllStopLoss():
                     needStopLossValue = symbolPositionAmt*symbolCost
 
                     if symbolPositionAmt<0:
-                        stopLossPrice = float(decimal.Decimal(PRICE_DECIMAL_OBJ[symbol] % (symbolCost*1.045)))
+                        stopLossPrice = float(decimal.Decimal(PRICE_DECIMAL_OBJ[symbol] % (symbolCost*1.1)))
                         stopAmount = abs(symbolPositionAmt)
 
                         stopLossOrderIDArr = []
@@ -375,7 +306,7 @@ def checkAllStopLoss():
                                 if len(stopLossOrderIDArr)!=0:
                                     FUNCTION_CLIENT.send_lark_msg_limit_one_min("re stop:"+str(abs(allStopLossQuantity))+","+str(abs(symbolPositionAmt)))
                     elif symbolPositionAmt>0:
-                        stopLossPrice = float(decimal.Decimal(PRICE_DECIMAL_OBJ[symbol] % (symbolCost*0.955)))
+                        stopLossPrice = float(decimal.Decimal(PRICE_DECIMAL_OBJ[symbol] % (symbolCost*0.9)))
                         stopAmount = abs(symbolPositionAmt)
 
                         stopLossOrderIDArr = []
