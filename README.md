@@ -113,7 +113,7 @@
 
 ### updateSymbol/trade_symbol.sql
 
-在数据库中生成trade_symbol表格，该表格将控制系统可执行交易的交易对信息，这也是该系统给唯一需要进行数据库储存和处理的地方，你也可以改造为录入文件中并从文件中读取
+在数据库中生成trade_symbol表格，该表格将控制系统可执行交易的交易对信息，你也可以改造为录入文件中并从文件中读取
 
 ### updateSymbol/updateTradeSymbol.sql
 
