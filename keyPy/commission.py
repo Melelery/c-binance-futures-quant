@@ -19,66 +19,6 @@ from commonFunction import FunctionClient
 
 FUNCTION_CLIENT = FunctionClient(larkMsgSymbol="commission",connectMysql =True)
 
-tableName = "income"
-tableExit = False
-sql ="show tables;"
-tableData = FUNCTION_CLIENT.mysql_select(sql,[])
-for a in range(len(tableData)):
-    if tableData[a][0]==tableName:
-        tableExit = True
-
-print(tableExit)
-if not tableExit:
-    sql="""CREATE TABLE """+tableName+""" (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `incomeType` varchar(255) DEFAULT NULL,
-  `income` double(30,10) DEFAULT NULL,
-  `bnbPrice` double(30,10) DEFAULT NULL,
-  `asset` varchar(255) DEFAULT NULL,
-  `trade_id` varchar(255) DEFAULT NULL,
-  `binance_ts` bigint DEFAULT NULL,
-  `symbol` varchar(255) DEFAULT NULL,
-  `apiKey` varchar(255) DEFAULT NULL,
-  `commission` double(30,10) DEFAULT NULL,
-  `info` varchar(255) DEFAULT NULL,
-  `my_ts` bigint DEFAULT NULL,
-  `instrument_id` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=754 DEFAULT CHARSET=utf8mb3
-;"""
-    FUNCTION_CLIENT.mysql_commit(sql,[])
-
-
-tableName = "income_history_take"
-tableExit = False
-sql ="show tables;"
-tableData = FUNCTION_CLIENT.mysql_select(sql,[])
-for a in range(len(tableData)):
-    if tableData[a][0]==tableName:
-        tableExit = True
-
-print(tableExit)
-if not tableExit:
-    sql="""CREATE TABLE `"""+tableName+"""` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `incomeType` varchar(255) DEFAULT NULL,
-  `income` double(30,10) DEFAULT NULL,
-  `bnbPrice` double(30,10) DEFAULT NULL,
-  `asset` varchar(255) DEFAULT NULL,
-  `trade_id` varchar(255) DEFAULT NULL,
-  `binance_ts` bigint DEFAULT NULL,
-  `symbol` varchar(255) DEFAULT NULL,
-  `apiKey` varchar(255) DEFAULT NULL,
-  `commission` double(30,10) DEFAULT NULL,
-  `info` varchar(255) DEFAULT NULL,
-  `my_ts` bigint DEFAULT NULL,
-  `instrument_id` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3
-;
-"""
-    FUNCTION_CLIENT.mysql_commit(sql,[])
-
 
 privateIP = FUNCTION_CLIENT.get_private_ip()
 
@@ -96,6 +36,41 @@ MACHINE_INDEX = int(SERVER_NAME.replace("commission_",""))
 INCOME_TABLE_NAME_ARR = ["income_history_take"]
 
 TEMP_INCOME_TABLE_NAME_ARR = ["income"]
+
+TRADES_TABLE_NAME = "binance_trades"
+
+SCAN_EXIT_TABLE = INCOME_TABLE_NAME_ARR+TEMP_INCOME_TABLE_NAME_ARR
+for i in range(len(SCAN_EXIT_TABLE)):
+    tableName = SCAN_EXIT_TABLE[i]
+    tableExit = False
+    sql ="show tables;"
+    tableData = FUNCTION_CLIENT.mysql_select(sql,[])
+    for a in range(len(tableData)):
+        if tableData[a][0]==tableName:
+            tableExit = True
+
+    print(tableExit)
+    if not tableExit:
+        sql="""CREATE TABLE `"""+tableName+"""` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `incomeType` varchar(255) DEFAULT NULL,
+  `income` double(30,10) DEFAULT NULL,
+  `bnbPrice` double(30,10) DEFAULT NULL,
+  `asset` varchar(255) DEFAULT NULL,
+  `trade_id` varchar(255) DEFAULT NULL,
+  `binance_ts` bigint DEFAULT NULL,
+  `symbol` varchar(255) DEFAULT NULL,
+  `apiKey` varchar(255) DEFAULT NULL,
+  `commission` double(30,10) DEFAULT NULL,
+  `info` varchar(255) DEFAULT NULL,
+  `my_ts` bigint DEFAULT NULL,
+  `instrument_id` varchar(255) DEFAULT NULL,
+  `coin` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3
+;
+"""
+        FUNCTION_CLIENT.mysql_commit(sql,[])
 
 
 BINANCE_API_KEY_ARR =[""]
