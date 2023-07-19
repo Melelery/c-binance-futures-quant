@@ -590,6 +590,7 @@ def newOpenOrders():
             while ('code' in result and (result['code'] ==-5022 or result['code'] ==-1001)):
                 result = makerCloseLongsOrder(shortsPriceObj["price"],closeQuantity,symbol)
                 errorTime = errorTime+1
+                getTickData()
                 if errorTime>3:
                     _thread.start_new_thread(FUNCTION_CLIENT.send_lark_msg,(" errorTime>3 A:"+symbol,))
                     time.sleep(errorTime*0.1)
