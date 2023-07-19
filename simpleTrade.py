@@ -580,6 +580,9 @@ def newOpenOrders():
                 result = makerLongsOrder(nowClosePrice,openQuantity,symbol)
                 errorTime = errorTime+1
                 getTickData()
+                if errorTime>3:
+                    _thread.start_new_thread(FUNCTION_CLIENT.send_lark_msg,(" errorTime>3 A:"+symbol,))
+                    time.sleep(errorTime*0.1)
         #一分钟上涨超过0.5%，并且该币种没有仓位则平多
         if oneMinRate>0.5 and positionValue!=0:
             result = makerCloseLongsOrder(nowClosePrice,closeQuantity,symbol)
