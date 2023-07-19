@@ -140,6 +140,8 @@
 
 g++ wsServer.cpp -o wsServer.out -lboost_system
 
+该源码使用了两个库 一个是websocketpp，一个是boost
+
 ### dataPy/uploadDataPy
 
 将程序从一个阿里云的主控服务器，上传到各个对应的阿里云服务器，运行，然后销毁。
