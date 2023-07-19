@@ -570,10 +570,10 @@ def newOpenOrders():
 
         openQuantity = float(decimal.Decimal(AMOUNT_DECIMAL_OBJ[symbol] % (100/nowClosePrice )))
         closeQuantity = float(decimal.Decimal(AMOUNT_DECIMAL_OBJ[symbol] % (100/nowClosePrice )))
-        oneMinsRate = FUNCTION_CLIENT.get_percent_num(float(oneMinArr[len(oneMinArr)-1][1])-float(oneMinArr[len(oneMinArr)-1-1][1]),float(oneMinArr[len(oneMinArr)-1-1][1]))
+        oneMinRate = FUNCTION_CLIENT.get_percent_num(float(oneMinArr[len(oneMinArr)-1][1])-float(oneMinArr[len(oneMinArr)-1-1][1]),float(oneMinArr[len(oneMinArr)-1-1][1]))
 
         #一分钟下跌超过1%，并且该币种没有仓位则开多
-        if oneMinsRate<-1 and positionValue==0:
+        if oneMinRate<-1 and positionValue==0:
             result = makerLongsOrder(nowClosePrice,openQuantity,symbol)
             errorTime = 1
             while ('code' in result and (result['code'] ==-5022 or result['code'] ==-1001)):
@@ -581,7 +581,7 @@ def newOpenOrders():
                 errorTime = errorTime+1
                 getTickData()
         #一分钟上涨超过0.5%，并且该币种没有仓位则平多
-        if oneMinsRate>0.5 and positionValue!=0:
+        if oneMinRate>0.5 and positionValue!=0:
             result = makerCloseLongsOrder(nowClosePrice,closeQuantity,symbol)
             errorTime = 1
             while ('code' in result and (result['code'] ==-5022 or result['code'] ==-1001)):
@@ -590,7 +590,6 @@ def newOpenOrders():
                 if errorTime>3:
                     _thread.start_new_thread(FUNCTION_CLIENT.send_lark_msg,(" errorTime>3 A:"+symbol,))
                     time.sleep(errorTime*0.1)
-            LAST_ORDER_INFO_ARR[oneMinKlineObjArrIndex]["highPrice"] = nowHighPrice
 
     #当前持仓总利润低于-100则强制平仓
 
