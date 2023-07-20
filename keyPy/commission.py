@@ -40,6 +40,7 @@ TEMP_INCOME_TABLE_NAME_ARR = ["income"]
 TRADES_TABLE_NAME = "binance_trades"
 
 SCAN_EXIT_TABLE = INCOME_TABLE_NAME_ARR+TEMP_INCOME_TABLE_NAME_ARR
+
 for i in range(len(SCAN_EXIT_TABLE)):
     tableName = SCAN_EXIT_TABLE[i]
     tableExit = False
