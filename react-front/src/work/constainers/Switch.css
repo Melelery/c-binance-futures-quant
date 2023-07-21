@@ -1,0 +1,39 @@
+html,body{
+    -webkit-touch-callout:none ;
+    -webkit-text-size-adjust:none ;
+    -webkit-tap-highlight-color:transparent ;
+    -webkit-user-select:none ;
+    font-family: "Microsoft YaHei" !important;
+    background-color: #000000;
+}
+
+.search-results{
+    pointer-events: none;
+    display:none
+}
+
+.my-divider{
+    background: -webkit-linear-gradient(#eaeaea, #f3f3f3); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#eaeaea, #f3f3f3); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#eaeaea, #f3f3f3); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#eaeaea, #f3f3f3); /* 标准的语法 */
+}
+
+
+.my-divider-b{
+    background: -webkit-linear-gradient(#f1f1f1, #e3e3e3); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#f1f1f1, #e3e3e3); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#f1f1f1, #e3e3e3); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#f1f1f1, #e3e3e3); /* 标准的语法 */
+}
+
+
+.best-trade-divider{
+    background: -webkit-linear-gradient(#f6f6f6, #f3f3f3); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#f6f6f6, #f3f3f3); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#f6f6f6, #f3f3f3); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#f6f6f6, #f3f3f3); /* 标准的语法 */
+}
+::-webkit-scrollbar {
+    display: none; /* Chrome Safari */
+}

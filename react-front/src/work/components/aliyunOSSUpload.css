@@ -1,0 +1,9 @@
+.ant-upload-picture-card-wrapper{
+    width:auto;
+}
+.ant-upload.ant-upload-select-picture-card{
+    background-color:rgb(246, 246, 246);
+    border:0px dashed #d9d9d9;
+    width:auto;
+    height:auto;
+}

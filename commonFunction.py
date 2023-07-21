@@ -155,12 +155,15 @@ class FunctionClient(object):
         while not normal:
             try:
                 cursor=self.mysqlConnect.cursor()
+                print("1")
                 cursor.execute(sql,params)
+                print("2")
                 res = cursor.fetchall()
+                print("3")
                 normal = True
                 cursor.close()
             except Exception as e:
-                self.send_lark_msg("mysql ex,"+str(e))
+                self.send_lark_msg("mysql ex,"+str(e)+","+sql+","+str(params))
                 print("mysql error")
                 print(sql)
                 print(e)
@@ -185,7 +188,7 @@ class FunctionClient(object):
                 normal = True
                 cursor.close()
             except Exception as e:
-                self.send_lark_msg("mysql ex,"+str(e))
+                self.send_lark_msg("mysql ex,"+str(e)+","+sql+","+str(params))
                 print("mysql error")
                 print(sql)
                 try: 
@@ -407,7 +410,7 @@ class FunctionClient(object):
 
     def open_take_binance_orders_by_web_server(self,symbol,direction,key,secret,price,openTime,positionValue,volMultiple):
         try:
-            url = "http://172.24.207.1:8888/take_open"
+            url = "http://"+TRADE_WEB_ADDRESS+":8888/take_open"
 
             postDataObj = {'privateIP':self.privateIP,'volMultiple':volMultiple,'symbol':symbol,'direction':direction,'key':key,'secret':secret,'price':price,'openTime':openTime,'positionValue':positionValue}
             response = requests.request("POST", url,timeout=(3,3),data=postDataObj)
@@ -416,7 +419,7 @@ class FunctionClient(object):
 
     def end_open_by_web_server(self,symbol):
         try:
-            url = "http://172.24.207.1:8888/end_open"
+            url = "http://"+TRADE_WEB_ADDRESS+":8888/end_open"
 
             postDataObj = {'privateIP':self.privateIP,'symbol':symbol}
             response = requests.request("POST", url,timeout=(3,3),data=postDataObj)

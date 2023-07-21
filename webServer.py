@@ -32,9 +32,69 @@ from aliyunsdkecs.request.v20140526.StopInstancesRequest import StopInstancesReq
 from config import *
 from commonFunction import FunctionClient
 
+FUNCTION_CLIENT = FunctionClient(larkMsgSymbol="webServer",connectMysqlPool=True)
+
+tableName = "trade_machine_status"
+
+tableExit = False
+
+sql ="show tables;"
+tableData = FUNCTION_CLIENT.mysql_select(sql,[])
+
+for a in range(len(tableData)):
+    if tableData[a][0]==tableName:
+        tableExit = True
+
+if not tableExit:
+    sql="""CREATE TABLE `"""+tableName+"""` (
+    `id` int NOT NULL AUTO_INCREMENT,
+    `private_ip` varchar(255) DEFAULT NULL,
+    `insert_ts` bigint DEFAULT NULL,
+    `update_ts` bigint DEFAULT NULL,
+    `status` varchar(255) DEFAULT NULL,
+    `run_time` bigint DEFAULT NULL,
+
+    PRIMARY KEY (`id`) USING BTREE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3
+    ;
+    """
+
+    FUNCTION_CLIENT.mysql_commit(sql,[])
+
+tableName = "machine_status"
+
+tableExit = False
+
+sql ="show tables;"
+tableData = FUNCTION_CLIENT.mysql_select(sql,[])
+
+for a in range(len(tableData)):
+    if tableData[a][0]==tableName:
+        tableExit = True
+
+if not tableExit:
+    sql="""CREATE TABLE `"""+tableName+"""` (
+    `id` int NOT NULL AUTO_INCREMENT,
+    `private_ip` varchar(255) DEFAULT NULL,
+    `insert_ts` bigint DEFAULT NULL,
+    `update_ts` bigint DEFAULT NULL,
+    `status` varchar(255) DEFAULT NULL,
+    `symbol` varchar(255) DEFAULT NULL,
+    `run_time` bigint DEFAULT NULL,
+
+    PRIMARY KEY (`id`) USING BTREE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3
+    ;
+    """
+
+    FUNCTION_CLIENT.mysql_commit(sql,[])
+
+
+
+
+
 ORDER_ID_SYMBOL = "wTake"
 
-FUNCTION_CLIENT = FunctionClient(larkMsgSymbol="webServer",connectMysqlPool=True)
 
 PRIVATE_IP = FUNCTION_CLIENT.get_private_ip()
 
@@ -2428,6 +2488,53 @@ def update_customize_dangerous():
     response.set_header('Access-Control-Allow-Origin', '*')
     return resp
 
+ALL_OPEN_ORDERS_ARR = []
+
+@post('/get_all_open_orders_b', methods='POST')
+def get_all_open_orders_b():
+    global NEW_API_OBJ
+    symbol = str(request.forms.get('symbol'))
+    now  = int(time.time()*1000)
+    result = {}
+    request_client = RequestClient(api_key=NEW_API_OBJ[symbol]["apiKey"],secret_key=NEW_API_OBJ[symbol]["apiSecret"])
+    result = request_client.get_all_open_orders()
+    result = json.loads(result)
+    resp = json.dumps({'s':'ok','r':result,'t':int(time.time())})
+    response.set_header('Access-Control-Allow-Origin', '*')
+    return resp
+
+@post('/get_position', methods='POST')
+def get_position():
+    global NEW_API_OBJ
+    symbol = str(request.forms.get('symbol'))
+    positionsArr = []
+    now  = int(time.time()*1000)
+    result = {}
+    request_client = RequestClient(api_key=NEW_API_OBJ[symbol]["apiKey"],secret_key=NEW_API_OBJ[symbol]["apiSecret"])
+    result = request_client.get_account_information()
+    result = json.loads(result)
+    for i in range(len(result["positions"])):
+        if float(result["positions"][i]["positionAmt"])!=0:
+            positionsArr.append(result["positions"][i])
+
+    resp = json.dumps({'s':'ok','r':positionsArr,'t':int(time.time())})
+    response.set_header('Access-Control-Allow-Origin', '*')
+    return resp
+
+
+@post('/get_trade_record', methods='POST')
+def get_trade_record():
+    global NEW_API_OBJ
+    symbol = str(request.forms.get('symbol'))
+    now  = int(time.time()*1000)
+    result = {}
+    request_client = RequestClient(api_key=NEW_API_OBJ[symbol]["apiKey"],secret_key=NEW_API_OBJ[symbol]["apiSecret"])
+    result = request_client.get_account_trades(symbol)
+    result = json.loads(result)
+    resp = json.dumps({'s':'ok','r':result,'t':int(time.time())})
+    response.set_header('Access-Control-Allow-Origin', '*')
+    return resp
+
 
 @post('/get_all_acount_info', methods='POST')
 def get_all_acount_info():
@@ -2657,6 +2764,39 @@ def update_loss_limit_time():
     resp = json.dumps({'s':'ok','t':int(time.time())})
     response.set_header('Access-Control-Allow-Origin', '*')
     return resp
+
+
+@post('/get_second_open_position', methods='POST')
+def get_second_open_position():
+    BINANCE_API_KEY ="bJpPkJe9kW8USXKDQuP2WKeSVaEIOM5wKT7Uta1ir2wmlAxNHN9hwrZDhjJCYcEd"
+    thisIP = "172.24.207.4"
+    url = "http://"+thisIP+"/"+BINANCE_API_KEY[0:10]+".json"
+    result = requests.request("GET", url,timeout=(0.5,0.5)).json()
+    resp = json.dumps({'s':'ok','t':int(time.time()),'r':result})
+    response.set_header('Access-Control-Allow-Origin', '*')
+    return resp
+
+
+@post('/get_invest_percent', methods='POST')
+def get_invest_percent():
+    investPercentObjArr = [
+
+    {'name': '吴钊庆', 'time': '2023-05-19 14:59:00', 'percent': 12.206461839330702, 'initValue': 2800, 'assetsWhileJoin': 20138.67, 'investType': 'longs'},
+    {'name': '一零二四', 'time': '2023-05-19 13:36:00', 'percent': 21.81179905448812, 'initValue': 5000, 'assetsWhileJoin': 15125.24, 'investType': 'longs'}, 
+    {'name': '李', 'time': '2023-05-16 21:52:00', 'percent': 8.808005636839024, 'initValue': 2000, 'assetsWhileJoin': 12982.22, 'investType': 'longs'}, 
+    {'name': 'michael', 'time': '2023-05-12 20:28:00', 'percent': 52.16531441742779, 'initValue': 10000, 'assetsWhileJoin': 959, 'investType': 'longs'}, 
+    {'name': 'ming', 'time': '2023-05-09 00:00:00', 'percent': 5.008419051914373, 'initValue': 750, 'assetsWhileJoin': 0, 'investType': 'longs'}]
+
+
+
+
+    for i in range(len(investPercentObjArr)):
+        investPercentObjArr[i]["percent"] = int(investPercentObjArr[i]["percent"]*10000)/10000
+
+    resp = json.dumps({'s':'ok','t':int(time.time()),'r':investPercentObjArr})
+    response.set_header('Access-Control-Allow-Origin', '*')
+    return resp
+
 
 
 @post('/update_machine_status', methods='POST')
@@ -3111,12 +3251,12 @@ def take_open():
 
 
             if direction=="longs":
-                value = 5000
+                value = 100
                 quantity = float(decimal.Decimal(AMOUNT_DECIMAL_OBJ[symbol] % (value/price )))
                 ordersResult = takeLongsOrder(price,quantity,"T",symbol,key,secret)
                 FUNCTION_CLIENT.send_lark_msg_limit_one_min(symbol+" take longs")
             if direction=="shorts":
-                value = 7500*volMultiple
+                value = 100
                 quantity = float(decimal.Decimal(AMOUNT_DECIMAL_OBJ[symbol] % (value/price )))
                 ordersResult = takeShortsOrder(price,quantity,"T",symbol,key,secret)
                 FUNCTION_CLIENT.send_lark_msg_limit_one_min(symbol+" take shorts")

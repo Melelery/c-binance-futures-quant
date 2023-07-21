@@ -1,0 +1,199 @@
+/*.ant-select-single:not(.ant-select-customize-input) .ant-select-selector{*/
+/*    background-color: #282d41;*/
+/*    border: 1px solid #171b2b;*/
+/*    color:#b1b5d2*/
+/*}*/
+
+/*.ant-select-single.ant-select-sm:not(.ant-select-customize-input) .ant-select-selector{*/
+/*    background-color: #202331;*/
+/*    border: 1px solid #454a5a;*/
+/*    color: #858dab;!important;*/
+/*    font-color:#525a78;*/
+/*}*/
+/*.ant-select-arrow{*/
+/*    background-color: #202331;*/
+/*    color: #858dab;!important;*/
+/*    font-color:#525a78;*/
+/*}*/
+
+/*.ant-btn-background-ghost{*/
+/*    color:#575d79;*/
+/*    border-color:#171b2b;*/
+/*}*/
+
+
+/*.ant-picker {*/
+/*    background-color: #282d41;*/
+/*    border: 1px solid #171b2b;*/
+/*    color:#b1b5d2;*/
+/*}*/
+
+/*.ant-picker-suffix{*/
+/*    color:#b1b5d2;*/
+/*}*/
+
+/*.ant-picker-input>input{*/
+/*    color:#b1b5d2*/
+/*}*/
+
+/*.ant-input-number{*/
+/*    background-color: #202331;*/
+/*    border: 1px solid #454a5a;*/
+/*    color: #858dab;!important;*/
+/*    font-color:#525a78;*/
+/*}*/
+/*.ant-picker{*/
+/*    background-color: #202331;*/
+/*    border: 1px solid #454a5a;*/
+/*    color: #858dab;!important;*/
+/*    font-color:#525a78;*/
+/*}*/
+/*.root{*/
+/*    background-color: #282d41;*/
+/*}*/
+
+/*.ant-tabs{*/
+/*    color:#b1b5d2 !important;*/
+/*}*/
+
+/*.ant-tabs-nav .ant-tabs-tab-active{*/
+/*    color:#f5f5f5 !important;*/
+/*}*/
+
+/*.ant-tabs-bar{*/
+/*    border-bottom:0px solid #f0f0f0*/
+/*}*/
+
+/*.ant-input{*/
+/*    background-color: #1a1e30;*/
+/*    border: 1px solid #1a1e30;*/
+/*    color:#ced0df;*/
+/*}*/
+/*.ant-slider-mark-text-active{*/
+/*    color:#525a78;*/
+/*    font-color:#b1b5d2;*/
+/*}*/
+/*.ant-slider-mark-text{*/
+/*    color:#ced0df;*/
+/*    font-color:#525a78;*/
+/*}*/
+
+/*.ant-card{*/
+/*    background-color: #282d41;*/
+/*    border: 1px solid #171b2b;*/
+/*    color:#ced0df;!important;*/
+/*    font-color:#525a78;*/
+/*}*/
+
+
+/*.ant-card-head{*/
+/*    color:#ced0df;!important;*/
+/*    border-bottom:1px solid #515151*/
+/*}*/
+
+
+/*.ant-radio ant-radio-checked{*/
+/*    color:#ced0df;*/
+/*}*/
+
+/*.ant-radio, .ant-radio-wrapper{*/
+/*    color:#ced0df;*/
+/*}*/
+
+/*.ant-btn{*/
+/*    background-color: #333a5c;*/
+/*    border: 1px solid #282d42;*/
+/*    color:#ced0df;*/
+/*}*/
+
+/*.ant-btn-primary{*/
+/*    background-color: #333a5c;*/
+/*    border: 1px solid #282d42;*/
+/*    color: #ced0df;*/
+/*}*/
+
+/*.ant-modal-confirm .ant-modal-confirm-btns button+button{*/
+/*    background-color: #333a5c;*/
+/*    border: 1px solid #282d42;*/
+/*    color: #ced0df;*/
+/*}*/
+/*.ant-slider-mark{*/
+/*    font-size:10px*/
+/*}*/
+/*.ant-modal-header{*/
+/*    background-color: #1a1e30;*/
+/*    border-bottom: 1px solid #282d42;*/
+/*}*/
+/*.ant-btn.active, .ant-btn:active, .ant-btn:focus, .ant-btn:hover{*/
+/*    background-color: #4b5686;*/
+/*    border: 1px solid #282d42;*/
+/*    color: #ced0df;*/
+/*}*/
+/*.ant-modal-title{*/
+/*    color:#c2c6df;*/
+/*}*/
+/*.ant-modal-body{*/
+/*    background-color: #434a67;*/
+/*    color:#ced0df;*/
+/*}*/
+/*.ant-modal-footer{*/
+/*    border-top:1px solid #282d42;*/
+/*    background-color: #1a1e30;*/
+/*}*/
+
+/*.ant-input[disabled]{*/
+/*    background-color: #1a1e30;*/
+/*    border: 1px solid #1a1e30;*/
+/*    color:#ced0df;*/
+
+/*}*/
+/*.ant-modal-confirm-body .ant-modal-confirm-content{*/
+/*    color:#ced0df;*/
+/*}*/
+
+/*.ant-table{*/
+/*    background-color: #1a1e30;*/
+/*    border: 1px solid #1a1e30;*/
+/*    color:#ced0df;*/
+
+/*}*/
+
+/*.ant-table-thead>tr>th{*/
+/*    background-color: #1a1e30;*/
+/*    border: 1px solid #1a1e30;*/
+/*    color:#ced0df;*/
+/*}*/
+/*.ant-table-tbody>tr>td{*/
+/*    border: 1px solid #2a304b;*/
+/*}*/
+
+/*.ant-modal-confirm-body .ant-modal-confirm-title{*/
+/*    color:#ced0df;*/
+/*}*/
+
+/*.ant-radio-button-wrapper{*/
+/*    background-color: #434a67;*/
+/*    border: 0px solid #1a1e30;*/
+/*    color: #bdc1de;*/
+/*}*/
+/*.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):first-child{*/
+/*    border-right-color:#ffffff;*/
+/*    border-color: #abafcd;*/
+/*}*/
+/*.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled){*/
+/*    border-right-color:#ffffff;*/
+/*    border-color: #abafcd;*/
+/*}*/
+/*.ant-radio-button-wrapper-checked:not([class*=" ant-radio-button-wrapper-disabled"]).ant-radio-button-wrapper:first-child{*/
+/*    border-right-color:#1a1e30;*/
+/*    background-color: #000000;*/
+/*    color: #b1b6d9;*/
+/*}*/
+/*.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled){*/
+/*    border-right-color:#1a1e30;*/
+/*    background-color: #000000;*/
+/*    color: #b1b6d9;*/
+/*}*/
+/*.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):before{*/
+/*    background-color:#434a67;*/
+/*}*/

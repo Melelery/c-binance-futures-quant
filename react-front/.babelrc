@@ -1,0 +1,25 @@
+{
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": [
+            ">1%",
+            "last 3 versions"
+          ]
+        }
+      }
+    ],
+    "stage-0",
+    "latest",
+    "react"
+  ],
+  "plugins": [
+    "transform-runtime",
+    "syntax-dynamic-import",
+    "transform-decorators-legacy",
+    "transform-class-properties"
+
+  ]
+}
