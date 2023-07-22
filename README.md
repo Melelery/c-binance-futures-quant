@@ -1,3 +1,4 @@
+[ENGLISH](https://github.com/Melelery/c-binance-future-quant/edit/main/README_EN.md)
 # 简介
 
 该项目为币安合约的架构，有超过100亿美金交易量和超过一年时间实盘验证，包含数据录入，风控，交易，数据分析，但不包含具体策略。
