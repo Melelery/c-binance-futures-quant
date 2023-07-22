@@ -1,8 +1,8 @@
 # Introduction
 
-It is the structure of Binance Futures, with a trading volume of more than 10 billion U.S. dollars and more than one year of real-time verification, including data, risk control, trading, and analysis, but does not include specific strategies.
+It is the structure of Binance Futures, with a trading volume of more than 10 billion USD and more than one year of real-time verification, including data, risk control, trading, and analysis, but does not include specific strategies.
 
-Front-end demo: [8.217.121.203](http://8.217.121.203/), currently put 1000 USD to run a high-frequency left regression strategy with apr 100%~200%
+Front-end demo: [8.217.121.203](http://8.217.121.203/), start running high frequency left regression strategy from $930, apr 100%~200%
 
 You can use it to implement your transaction logic simply and at low cost. It uses a large number of Alibaba Cloud servers for distributed architecture, multi-process processing, and Lark for abnormal error reporting and transaction information disclosure.
 
@@ -13,7 +13,7 @@ If you are willing to read all the information in this readme in detail, especia
 
 Low cost, high efficiency, and simple implementation
 
-With a cost of less than  150 USD per month, it can scan about 15 million symbol per minute to see if they meet the transaction conditions
+With a cost of less than  $150 per month, it can scan about 15 million symbol per minute to see if they meet the transaction conditions
 
 Except for the matching server (C++), it is written in python, which is easy to understand
 
@@ -37,7 +37,7 @@ The front-end data section uses Alibaba Cloud oss as an intermediary, and the we
 
 # Author
 
-In 2021, I started quantitative trading after resigning from a top quantitative company. The main battlefield is Binance. In the past two years, I have been involved in various types of market maker->trend->arbitrage. At the peak, Binance had a monthly transaction volume of nearly 2 billion US dollars.
+In 2021, I started quantitative trading after resigning from a top quantitative company. The main battlefield is Binance. In the past two years, I have been involved in various types of market maker->trend->arbitrage. At the peak, Binance had a monthly transaction volume of nearly 2 billion USD.
 
 By July 2023, due to various reasons, the general direction has failed, leaving only a friend's funds to continue to operate a relatively stable and profitable left-hand trading strategy.
 
@@ -169,7 +169,7 @@ Although the Amazon cloud has lower latency, but due to
 
 1. The ws-type data read is usually locked by Binance with a delay of more than 100ms, and the ws-type read data has some unconfirmable risk factors, so this method is excluded
 
-2. If the https reading method is used, the reading weight of some data is as high as 20, or even 30. From this, it is deduced that multiple IPs are needed, and distributed reading can have higher frequency. At this time, the cost price of a single IP becomes a factor that needs to be considered. The cost of Alibaba Cloud's preemptive server is less than 2 usd a month. After comprehensive cost-effective considerations, we chose Japan's Alibaba Cloud.
+2. If the https reading method is used, the reading weight of some data is as high as 20, or even 30. From this, it is deduced that multiple IPs are needed, and distributed reading can have higher frequency. At this time, the cost price of a single IP becomes a factor that needs to be considered. The cost of Alibaba Cloud's preemptive server is less than $2  a month. After comprehensive cost-effective considerations, we chose Japan's Alibaba Cloud.
 
 3. This solution is not a solution for high-frequency (nanosecond-level) transactions, otherwise it will all be written in C++. In fact, it is a set of solutions that pursue cost, delay, and development speed, and balance the optimal solution among the three, and serve millisecond-level strategies
 
@@ -179,7 +179,7 @@ Although the Amazon cloud has lower latency, but due to
 
 The front-end file, the webpage is an external webpage, so the time interval of one minute is forced to be locked, and the displayed data is relatively simple, after all, it is external
 
-I also designed a detailed data analysis website on the intranet, but this part actually needs to be customized with its own quantitative strategy, and once it is made public, there is a risk of strategy leakage, so it will not be disclosed here.
+I also designed a detailed data analysis website on the intranet, but this part needs to be customized with your quantitative strategy, and once it is made public, there is a risk of strategy leakage, so it will not be disclosed here.
 
 In addition, the data processing after the transaction and the front-end code are all based on the realization of functions, so they do not pay attention to other indicators such as performance, please refer to the FAQ at the bottom
 
