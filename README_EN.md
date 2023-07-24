@@ -2,7 +2,6 @@
 
 It is the structure of Binance Futures, with a trading volume of more than 10 billion USD and more than one year of real-time verification, including data, risk control, trading, and analysis, but does not include specific strategies.
 
-Front-end demo: [8.217.121.203](http://8.217.121.203/), start running high frequency left regression strategy from $930, apr 100%~200%
 
 You can use it to implement your transaction logic simply and at low cost. It uses a large number of Alibaba Cloud servers for distributed architecture, multi-process processing, and Lark for abnormal error reporting and transaction information disclosure.
 
