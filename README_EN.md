@@ -45,7 +45,26 @@ This is a set of high-efficiency, low-cost data reading and input framework that
 
 For financial cooperation or job opportunities (don’t talk about any strategy principles and source codes, please get straight to the point to save time for both parties), please email to c.binance.quant@gmail.com
 
+Additional information was updated on July 24th, it has nothing to do with this open source project, it may be regarded as an advertisement, please skip it if you don’t like it
 
+In the past few days, friends who have added WeChat, email, and meetings to communicate, except for HR, add up to more than a dozen, so here is a unified summary of the recent quantitative experience of the individuals that everyone cares about the most.
+
+From December to March last year, I worked with my friend on Binance’s market quantification. I have an MM3 account, and the trading volume can basically meet the requirements. I basically only do Ethereum and Bitcoin, but I can’t stand the trend of the market, and I can’t estimate the trading volume indicator.
+
+It took about one and a half months, the apr of 10,000 US dollars was about 900%, but with the increase of funds, the annualized decline, the apr was about 200% to 300% when it reached 50,000 US dollars, no leverage, the maximum drawdown was 25%, and the daily trading volume was 500,000 to 1 million US dollars.
+
+![微信图片_20230715195116](https://github.com/Melelery/c-binance-future-quant/assets/139823868/b63e8822-5cf7-4dcf-82ac-33a6cddbf375)
+In the first three days of the chart, the principal was 750 usd, before June it was 10,000 usd, and then gradually increased to 50,000 usd
+
+Marketers who couldn’t keep MM3 later wanted to try to switch to the take strategy, but it was unsuccessful, including the take strategy currently displayed on the webpage, and I also cut off the source of funds.
+
+So I open source the architecture, hoping to find some opportunities, including funding or work, but it cannot involve my own strategy.
+
+At present, several friends of market maker resources have contacted me. Those who have a market maker account need transaction volume, and those who do not have a market maker account need a fee rate. If you also have market maker resource docking needs, you can contact me.
+
+There are also contacts from the capital, but the conditions raised by the capital are slightly beyond my psychological expectations. 1 is that it needs to be run on the other party’s account, which means that the data is exposed;
+
+So if it is a cooperation between capital and capital, my expectation is 1. The amount of funds does not need to be too high, 1-100,000 US dollars. 2. It needs to be run on our account or you have the market resources of Binance MM5.
 # Environment and startup
 
 The operating environment of our real project is Ubuntu 22.04 64-bit, Python 3.10.6
