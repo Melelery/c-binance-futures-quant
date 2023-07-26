@@ -29,7 +29,7 @@ for a in range(len(symbolsArr)):
         thisBaseAsset = symbolsArr[a]["baseAsset"]
         thisQuote = thisSymbol.replace(thisBaseAsset,"")
         sql = "INSERT INTO trade_symbol ( symbol,`coin`,`quote`,`status`,`onboardDate`,`index`,`defaultShow`,`onboardTs`,`linkSymbolArr`)  VALUES ( %s, %s,%s,%s, %s,%s,%s, %s,%s );" 
-        FUNCTION_CLIENT.mysql_commit(sql,[thisSymbol,thisBaseAsset,thisQuote,"yes",turnTsToTime(int(symbolsArr[a]["onboardDate"]/1000)),0,0,int(symbolsArr[a]["onboardDate"]/1000),json.dumps([])])
+        FUNCTION_CLIENT.mysql_commit(sql,[thisSymbol,thisBaseAsset,thisQuote,"yes",FUNCTION_CLIENT.turn_ts_to_time(int(symbolsArr[a]["onboardDate"]/1000)),0,0,int(symbolsArr[a]["onboardDate"]/1000),json.dumps([])])
 
 
 url = "https://fapi.binance.com/fapi/v1/ticker/24hr"
