@@ -1,74 +1,78 @@
 # Introduction
 
-It is the structure of Binance Futures, with a trading volume of more than 10 billion USD and more than one year of real-time verification, including data, risk control, trading, and analysis, but does not include specific strategies.
+It is the structure of Binance Futures, with more than $10 billion in trading volume and more than a year of real-time verification, including data entry, risk control, trading, data analysis, but does not include specific strategies.
 
+Front-end demo address: temporarily down, currently in the design of a new set of demo solutions, is expected to July 28th online!
 
-You can use it to implement your transaction logic simply and at low cost. It uses a large number of Alibaba Cloud servers for distributed architecture, multi-process processing, and Lark for abnormal error reporting and transaction information disclosure.
+You can use it to implement your trading logic in a simple, low-cost way, which makes extensive use of AliCloud servers for distributed architecture, multi-processing, and Flybook for exception reporting and transaction information disclosure.
 
 If you are willing to read all the information in this readme in detail, especially [Module Detailed Analysis](#Module-detailed-analysis), then it will also be a book on Binance Contracts trading risk control, experience and understanding of the design architecture, and summarizes almost all my successes and failures.
 
 
 # Advantage
 
-Low cost, high efficiency, and simple implementation
+Low cost, high efficiency and simple implementation are the three advantages of this system.
 
-With a cost of less than  $150 per month, it can scan about 15 million symbol per minute to see if they meet the transaction conditions
+With a cost of less than 1,000 RMB a month, it can scan about 15 million pairs per minute to see if the trading conditions are met.
 
-Except for the matching server (C++), it is written in python, which is easy to understand
+All but the aggregation server (C++) are written in python, which is easy to understand.
 
-A large number of distributed architectures achieve faster speed, and the number of servers can be adjusted freely according to individual needs to achieve a balance between cost and performance
+Massively distributed architecture to achieve faster speeds, and the number of servers can be freely scaled according to individual needs to achieve a balance between cost and performance.
 
-Read the market/account information through multiple interfaces and integrate it according to the update time stamp to minimize data risk
+Read quotes/account information through multiple interfaces and integrate them according to update timestamps to minimise data risk.
 
-Enterprise-level risk control security solutions
+Enterprise-level risk control and security solutions
 
 # Architecture
 
-The system uses a C++ server as the main matching server, and a large number of scalable and adjustable distributed python servers as data collection servers.
+The system works through a C++ server as the main aggregation server and a large number of scalable and adjustable distributed python servers as data collection servers.
 
-to feed the collected data, such as Kline, trades, tick, etc., to the C++ server.
+The collected data, including Kline , trades, ticks, etc., are fed to the C++ server.
 
-The trading server then uniformly reads data from the C++ server, and maintains a K-line ledger on the local side to avoid the frequency limit of the exchange and achieve high-efficiency and low-cost data reading.
+The trading server then reads the data uniformly from the C++ server and maintains a Kline book on the local side to avoid the frequency limitation of the exchange and achieve high efficiency and low cost data reading.
 
-For another example, there are three ways to obtain the account balance and position data on Binance, a is position risk, b is account, and c is ws, then there will be three servers that use these three ways to read, and then import it to the C++ server for proofreading, intercept the latest data by comparing the update time, and then serve it to the trading server
+For example, there are three ways to get the account balance and position data on CoinAn, a is position risk, b is account, c is ws, then there will be three servers to read the data in these three ways, and then converge to the C++ server for proofreading, and then intercept the latest data by comparing with the update time, and then serve it to the trading server.
 
-The front-end data section uses Alibaba Cloud oss as an intermediary, and the web page reads oss data to display and isolate data risks
+Front-end data board, through the Ali cloud oss as an intermediary, the web page to read oss data for display, isolate the data risk
 
 # Author
 
-In 2021, I started quantitative trading after resigning from a top quantitative company. The main battlefield is Binance. In the past two years, I have been involved in various types of market maker->trend->arbitrage. At the peak, Binance had a monthly transaction volume of nearly 2 billion USD.
+In 2021, I resigned from a top quantitative company to do quantitative trading, the main battlefield in the coin security, during these two years, I have been involved from market maker -> trend -> arbitrage and other types, the peak time, in the coin security a month there is close to 2 billion U.S. dollars in trading volume.
 
-By July 2023, due to various reasons, the general direction has failed, leaving only a friend's funds to continue to operate a relatively stable and profitable left-hand trading strategy.
+By July 2023, for a variety of reasons, the general direction failed, leaving only a very small amount of money to continue to run a more stable and profitable left side trading strategy.
 
-This is a set of high-efficiency, low-cost data reading and input framework that has been explored in the past two years. It also includes a set of risk control system. It is more like an architecture than an implementation. You can also apply it to okex, bybit, etc. through simple modification and replacement.
+This is a set of high efficiency, low cost data reading, entry framework explored in the past two years, and includes a set of risk control system, he is more like a structure, rather than a realisation, you can also be applied to okex, bybit, etc. through simple modification and replacement.
 
-For financial cooperation or job opportunities (don’t talk about any strategy principles and source codes, please get straight to the point to save time for both parties), please email to c.binance.quant@gmail.com
+Funding co-operation or job opportunities (do not talk about any involved strategy principles and source code, please open the door to save both sides time), please contact the micro-signal melelery 或邮件至c.binance.quant@gmail.com
 
-Additional information was updated on July 24th, it has nothing to do with this open source project, it may be regarded as an advertisement, please skip it if you don’t like it
+July 24th update additional information, not related to this open source project, may be regarded as advertising, if you do not like it, please skip!
 
-In the past few days, friends who have added WeChat, email, and meetings to communicate, except for HR, add up to more than a dozen, so here is a unified summary of the recent quantitative experience of the individuals that everyone cares about the most.
+In the past few days, I've been exchanging with more than a dozen friends in addition to HR, so I'd like to unify my personal quantitative experience that everyone is most concerned about.
 
-From December to March last year, I worked with my friend on Binance’s market quantification. I have an MM3 account, and the trading volume can basically meet the requirements. I basically only do Ethereum and Bitcoin, but I can’t stand the trend of the market, and I can’t estimate the trading volume indicator.
+Last year December ~ March and my friend to do the market negotiation of Coinan, MM3 account, the transaction volume can basically meet the requirements, basically only do ethereum and bitcoin, but can not carry the trend of the market, the prediction can not complete the transaction volume indicator, so the back of the idea to shift to the quantification of the pan-currency.
 
-It took about one and a half months, the apr of 10,000 US dollars was about 900%, but with the increase of funds, the annualized decline, the apr was about 200% to 300% when it reached 50,000 US dollars, no leverage, the maximum drawdown was 25%, and the daily trading volume was 500,000 to 1 million US dollars.
+I've been doing this for almost a month and a half, and the apr of $10,000 is about 900%, but with the increase in the amount of funds the annualised rate of decline, the apr of $50,000 is about 200% to 300%, no leverage, the maximum retracement is 25%, and the daily turnover of $50,000 is $50,000 to $1,000,000.
 
 ![微信图片_20230715195116](https://github.com/Melelery/c-binance-future-quant/assets/139823868/b63e8822-5cf7-4dcf-82ac-33a6cddbf375)
-In the first three days of the chart, the principal was 750 usd, before June it was 10,000 usd, and then gradually increased to 50,000 usd
+The chart was 750usd principal for the first three days, 10kusd until June, and gradually rose to 50kusd later on
 
-Marketers who couldn’t keep MM3 later wanted to try to switch to the take strategy, but it was unsuccessful, including the take strategy currently displayed on the webpage, and I also cut off the source of funds.
+I couldn't keep the MM3 market maker at the back, and wanted to try to switch to take strategy, but it didn't work out, including the current webpage showing the take strategy, and I was cut off from funding.
 
-So I open source the architecture, hoping to find some opportunities, including funding or work, but it cannot involve my own strategy.
+So I'm open-sourcing the structure in the hope that I can find some opportunities, including funding or jobs, but not involving my own strategy.
 
-At present, several friends of market maker resources have contacted me. Those who have a market maker account need transaction volume, and those who do not have a market maker account need a fee rate. If you also have market maker resource docking needs, you can contact me.
+At present, there are already a few friends of the marketer resources contact me, with marketer account needs trading volume, without marketer account needs commission rate, if you also have the marketer resources to match the demand can contact me.
 
-There are also contacts from the capital, but the conditions raised by the capital are slightly beyond my psychological expectations. 1 is that it needs to be run on the other party’s account, which means that the data is exposed;
+There are also capital contacts, but the conditions mentioned by the capital slightly more than my psychological expectations, 1 is the need to run in each other's accounts, which represents the data exposed, 2 is divided, before I was 7 3 open, currently contacted are 2 8, 3 7, three is the capital capacity, I do not do the strategy of the capital capacity is not large (peak in the 30 ~ 500,000 U.S. dollars, depending on the account of the marketer level)
 
-So if it is a cooperation between capital and capital, my expectation is 1. The amount of funds does not need to be too high, 1-100,000 US dollars. 2. It needs to be run on our account or you have the market resources of Binance MM5.
+So if it is the capital side of the cooperation, my expectations are 1. the amount of funds do not need to be too high, 1 ~ 100,000 U.S. dollars, 2. need to run in our account or your side has the Coin MM5 marketer resources, 3. the share of this can be made concessions, depending on the resources, the resources are good in the case of the 3 7 will be able to do.
+
+Personally, I prefer to have a stable job opportunity or outsourcing project opportunity, I will start after accumulating my own!
+
 # Environment and startup
 
-The operating environment of our real project is Ubuntu 22.04 64-bit, Python 3.10.6
+Our live project runs on Ubuntu 22.04 64-bit, Python 3.10.6.
 
-The python file runs in the following way, taking webServer as an example
+The python files are run in the following way, using the webServer as an example
 
 ```
 ps -efwwww | grep webServer.py | awk '{print $2}' | xargs kill -9
@@ -101,331 +105,333 @@ chmod +x wsServer.out
 nohup ./wsServer.out >/dev/null &
 ```
 
-Since all the libraries and packages used by the project are official or popular projects, you can find the installation method on Google, so I won’t repeat how to install the environment here
+Since all the libraries and packages used in the project are official or popular projects, you can find the installation method in google, so I won't repeat how to install the environment here.
 
-If you need the simplest startup solution, you can email us at c.binance.quant@gmail.com and share the system image directly to your Alibaba Cloud account, and charge 100 USDT for technical fees
+If you need a minimal startup solution, you can contact us at c.binance.quant@gmail.com and we will share the system image directly to your Aliyun account for a technical fee of 100 USDT.
 
 # Module detailed analysis
 
 The modules we designed include [General Part](#General Part), [Data Processing Part](#Data Processing Part), [Key Operation Part](#Key Operation Part), [Security Risk Control Part](#Security Risk Control Part), and specific transaction logic parts that are not open source
 
-The minimum starting requirements of this project are a web server, a ws server, a tick data reading server, a one min kline data reading server, and a transaction server
 
-You can expand related servers according to your own needs, for example, you need a 15 m kline, you need trades, etc., you only need to add on this basis, there is no integration of handicap data here, except buy one sell one.
+The minimum requirements for this project are a web server, a ws server, a tick data reading server, a one min kline data reading server, and a trades server.
 
-For higher-dimensional handicap data, we choose to read it in the trading server
+You can expand the servers according to your needs, e.g. if you need a 15 m kline, trades, etc., just add on top of that, there is no integration of the handicap data, except for the buy one sell one.
 
-Because apart from kline data, the integration of other data does not have much practical significance
+For higher dimensions of intraday data, we choose to read it inside the trading server.
 
-The kline data of 200 trading pairs can reduce the frequency of calling the interface in this way, and the latest data can still be obtained through proofreading when some interfaces are delayed
+Because there is not much point in integrating other data except kline data.
 
-But there is only one API for handicap data, so there is no integration requirement.
+With 200 pairs of kline data, this way we can reduce the frequency of interface calls and still get the latest data by proofreading even if some interfaces have delays.
 
-Our solution to the delay of handicap data is through the distributed operation of transaction servers.
+But there is only one api for handicap data, so there is no need for integration.
 
-For example, five trading servers are set up, running the same logic of opening and closing positions. After the pre-opening conditions are met, the five servers will simultaneously enter the process of reading handicap data, and read the same data in multiple processes at the same time, which can optimize delays and other unexpected situations.
+Our solution for the latency of the handicap data is through the distributed operation of the trading servers.
 
-By the way, here is a way for a transaction server to issue an order.
+If you set up five trading servers, running the same opening and closing logic, after meeting the pre-opening conditions, the five servers will simultaneously enter the process of opening and reading data, the same time multiple processes to read the same data, you can optimise the delay and other unexpected conditions.
 
-There are two types, one is to issue directly on the transaction server, and the other is to make a web server that issues transaction instructions, and the transaction server sends a unified request to the intranet web server through http requests.
+Here incidentally leads to a trading server to issue orders.
 
-For example, five trading servers, assuming that the total transaction volume demand is 100u, then each server is responsible for 20u of transaction volume, if there is a delay or other problems, if a server loses the signal, it will lose 20u of transaction volume
+There are two kinds, one is issued directly on the trading server, one is to make a trading order issued by the web server, the trading server through http request to the intranet web server after the unified issue.
 
-And if the web server is used to send out uniformly, then 100% of the transaction volume will be issued when the http request is received for the first time
+For example, five trading servers, assuming that the total volume demand is 100u, then each server is responsible for 20u of the transaction volume, if the delay or other problems, a server lost the signal that is the loss of 20u of the transaction volume.
 
-The two methods have their own applicable places and advantages, and you need to choose by yourself. In fact, the second method has been integrated in the webserver file.
+If a web server is used to send out a unified request, then 100% of the volume will be sent out the first time a http request is received.
 
-
-The specific server configuration of the real project currently maintained by us is (the server name is the name of the open source file, and there is a more detailed introduction to individual files below)
-
-A wsPosition server, used to read the position and balance data of Binance through ws, and import it into the ws data matching server
-
-A positionRisk server, which is used to read the /fapi/v2/positionRisk interface, obtain position information through this interface and judge the loss in real time, so as to stop the loss in time. This server has similar functions to wsPosition, makerStopLoss, and getBinancePosition. The reason why multiple servers with the same functions are designed is to prevent risks to the greatest extent. In the event of a delay in a certain interface of Binance, the system can still run robustly, and will not be repeated below.
-
-A makerStopLoss server is used to read the individual pending order information after reading the position information from the getBinancePosition server, and then preset the stop loss order. The reason why it is split from the getBinancePosition server is because the weight required to read the pending order is higher, splitting into two IPs can be operated at a higher frequency
-
-A getBinancePosition server, used to read the /fapi/v2/account interface, obtain the position information and balance, and import it to the ws data matching server
-
-A commission server for recording flow information
-
-A checkTimeoutOrders server, used to read the /fapi/v1/openOrders interface, query all pending orders, and then cancel the pending orders exceeding a certain period of time, or perform some additional operations, for example, if the pending order is not eaten within three seconds, it will be converted into a take order, etc.
-
-A cancelServer server, which is essentially a web server server, runs the webServer file to cancel the order
-
-A webServer server, which is essentially a web server server, runs the webServer file, which is used for most programs to read transaction pairs at the beginning, etc.
-
-Two oneMinKlineToWs servers, used for low-frequency reading of one-minute line klines
-
-Two volAndRate servers, used to read transaction volume data for analysis and provide to other servers
-
-Ten specialOneMinKlineToWs servers for high-frequency reading of one-minute klines
-
-Ten tickToWs servers for reading tick group information
-
-A ws server, used for C++ data stamping server
-
-And five trading servers, in addition to running the trading program and running the webServer at the same time, provide an interface for checkTimeout to obtain all pending order data
-
-A total of 38 servers, and a mysql database with a minimum configuration
-
-Among them, for the opening server and ws server, the server with high main frequency is selected, and the speed is about doubled. It is not necessary to perform this optimization for other market and data entry servers, only need to choose the preemptive server with the lowest configuration
-
-The comprehensive cost is less than 3,000 RMB per month, and the bulk is in the traffic fee. Personally, I think that cutting the above amount in half can still meet most quantitative risk control and delay needs.
+Both ways have their own advantages and applicability, you need to choose, in fact, in the webserver file has been integrated into the second way.
 
 
-In this project, a single module requires one server and one IP to run independently. At present, the https reading frequency of a single module has basically been tuned to the maximum value allowed by Binance.
+We are currently maintaining the real project, the specific server configuration is, (server name is the open source file name, in the following there is a more detailed description of the individual files)
 
-What needs to be explained here is that Alibaba Cloud Tokyo is used as an example here, and Binance’s servers are in Amazon Cloud Tokyo.
+A wsPosition server, used to read the position and balance data of CoinOn through ws, and remit them to the ws data aggregation server.
 
-The delay described in this article actually includes two delays, one is the delay of reading frequency, and the other is the delay of the network. After the comprehensive calculation of these two delays, it is the final delay in the real environment.
+A positionRisk server, used to read /fapi/v2/positionRisk interface, through the interface to obtain position information and real-time judgement of the loss, in order to facilitate timely stop-loss, the server and wsPosition, makerStopLoss, getBinancePosition have similar functions. The reason for designing multiple servers with the same functionality is to maximise the risk of the system remaining robust in the event of a delay in one of CoinSecure's interfaces, which will not be repeated below.
 
-The reason why Alibaba Cloud is used is because Alibaba Cloud's preemptive servers have cost advantages and thus have the advantage of reading frequency delay.
+A makerStopLoss server is used to read the position information from the getBinancePosition server, then read the separate pending order information, and then preset the stop loss order. The reason for splitting with the getBinancePosition server is that reading the pending order requires higher weight, and splitting into two ips allows for a higher frequency of the operation
 
-Alibaba Cloud's network delay is about 10ms, while Amazon is expected to be 1~3ms without applying for intranet permissions. Applying for intranet will face the problem of locking ip, that is, it is impossible to reduce the delay by spreading more ip.
+One getBinancePosition server, used to read /fapi/v2/account interface, get the position information and balance and then remit to the ws data aggregation server.
 
-Although the Amazon cloud has lower latency, but due to
+A commission server to record the flow information.
 
-1. The ws-type data read is usually locked by Binance with a delay of more than 100ms, and the ws-type read data has some unconfirmable risk factors, so this method is excluded
+A checkTimeoutOrders server, which is used to read /fapi/v1/openOrders interface, query all pending orders, and then cancel the pending orders that have exceeded a certain period of time, or carry out some additional operations, for example, if a pending order is not eaten for three seconds, it will be converted into a take order and so on.
 
-2. If the https reading method is used, the reading weight of some data is as high as 20, or even 30. From this, it is deduced that multiple IPs are needed, and distributed reading can have higher frequency. At this time, the cost price of a single IP becomes a factor that needs to be considered. The cost of Alibaba Cloud's preemptive server is less than $2  a month. After comprehensive cost-effective considerations, we chose Japan's Alibaba Cloud.
+A cancelServer server, which is essentially a web server server, running webServer files for cancelling orders.
 
-3. This solution is not a solution for high-frequency (nanosecond-level) transactions, otherwise it will all be written in C++. In fact, it is a set of solutions that pursue cost, delay, and development speed, and balance the optimal solution among the three, and serve millisecond-level strategies
+One webServer server, which is also essentially a web server server, running the webServer file, which is used to read trade pairs at the beginning of most programmes, etc.
 
-## Common section
+Two oneMinKlineToWs servers for low frequency reading of one minute line klines.
+
+Two volAndRate servers, used to read volume data for analysis and to provide to other servers.
+
+Ten specialOneMinKlineToWs servers for high-frequency reading of one-minute klines.
+
+Ten tickToWs servers for reading tick group information.
+
+one ws server for C++ data stamping server
+
+and five trading servers, which run the webServer in addition to the trading programme and provide an interface to checkTimeout to get all the pending order data.
+
+Total 38 servers, and a mysql database with minimum configuration.
+
+For the open position server and ws server, we chose a high-frequency type of server, about double the speed increase, the other quotes and data entry servers do not need to carry out this optimisation, only the lowest configuration of the preemptive server.
+
+Comprehensive cost of less than 3000 RMB a month, the big head in the traffic costs, I think the above number of half cut can still meet most of the quantitative wind control and latency needs.
+
+
+In that project, a separate module, need a server and an IP to run separately, has basically tuned the https read frequency of a single module to the maximum allowed by CoinSecure.
+
+It should be noted here that here are all to AliCloud Tokyo as an example, CoinSecurity's servers in the Amazon cloud Tokyo.
+
+The latency described in this article, in fact, contains two kinds of latency, one is the latency of the read frequency, and the other is the latency of the network, the two kinds of latency combined calculation is the final latency in the real environment.
+
+The reason why we use Aliyun is because Aliyun preemptive servers have a cost advantage, and thus have the advantage of reading frequency latency.
+
+Aliyun network latency is about 10ms, while Amazon is expected to be 1~3ms without applying for intranet access, and applying for intranet faces the problem of locking the ip, i.e. it is not possible to reduce the latency by means of spreading more ip.
+
+Although Amazon cloud has lower latency, due to
+
+1. ws-type data reading is usually locked by CoinSecurity with a latency of more than 100ms, and ws-type data reading has certain risk factors that cannot be confirmed, so this method is ruled out.
+
+2. if you take https reading method, some data reading weight up to 20, or even 30, which deduced the need for multi-IP, distributed reading to have a higher frequency, and at this time, the cost of a single IP price that becomes a factor to consider, Aliyun preemptive server cost less than 20 yuan a month, in the comprehensive cost-effective considerations, we chose the After considering the overall cost-effectiveness, we chose Aliyun Japan.
+
+3. This solution is not a solution for high frequency (nanosecond level) trading, otherwise it would be written in C++, in fact, it is a solution that pursues the optimal balance of cost, latency, and development speed, and serves millisecond level strategies.
+
+
+## General section
 
 ### react_front folder
 
-The front-end file, the webpage is an external webpage, so the time interval of one minute is forced to be locked, and the displayed data is relatively simple, after all, it is external
+The front-end file, the webpage is an external webpage, so it is forced to lock the time interval of one minute, and the data displayed is relatively simple, after all, it is an external webpage.
 
-I also designed a detailed data analysis website on the intranet, but this part needs to be customized with your quantitative strategy, and once it is made public, there is a risk of strategy leakage, so it will not be disclosed here.
+I have also designed a detailed data analysis website for the intranet, but this part actually needs to be customised according to your own quantitative strategy, and there is a risk of strategy leakage once it is made public, so it is not disclosed here.
 
-In addition, the data processing after the transaction and the front-end code are all based on the realization of functions, so they do not pay attention to other indicators such as performance, please refer to the FAQ at the bottom
+In addition, the after trade data processing, as well as the front-end code, are all based on the implementation of the function, so do not focus on other indicators such as performance, you can refer to the bottom faq
 
 ### afterTrade folder
 
-How to update the server to the front-end data file, the main principle is to use Alibaba Cloud oss as middleware to isolate data risks
+How the server updates to the front-end data files, the main principle is to use AliCloud oss as middleware, isolate the data risk
 
-Among them, tradesUpdate.py is a more detailed trade record, you need to call the begin_trade_record interface of webServer to insert the transaction data when placing an order
+The tradesUpdate.py is a more detailed trade record, which requires you to call the webServer's begin_trade_record interface to insert the trade data when placing an order.
 
-Please note that the design of this interface is based on my own needs, because everyone has different quantitative models, parameters, etc., and needs to study differently, so I suggest you rewrite this piece yourself
+Please note that the design of this interface is based on my own needs, because everyone's quantitative models, parameters, etc. are different, and need to study is not the same, so it is recommended that this piece of their own rewriting
 
 positionRecord.py mainly records the account balance and position value per minute, serving the following files
 
-webOssUpdate.py will organize the data and upload it to oss, and the web front end will read the data from oss, and will organize the transaction records to form a statistical table in units of days. This place simply counts the profit and handling fee, and you can expand it yourself.
+webOssUpdate.py will collate the data and upload it to oss, the web front-end will read the data from oss, and will collate the transaction flow record to form a statistical table in terms of days, the service is just a simple statistic of the profit and commission, you can expand it by yourself.
 
 ### binance_f folder
 
-Binance's processing package related to the API key interface is a version that has undergone secondary transformation after downloading it from github recommended by Binance's official website
+The processing package for the interface involving the api key, downloaded from github recommended by the official website of Binance, is the version that has been remodelled twice.
 
-###config.py
+### config.py
 
-General configuration, you need to configure the mysql database by yourself, and apply for the Lark api key, etc.
+Common configuration, need to configure mysql database, and apply for Flybook api key, etc.
 
 ### commonFunction.py
 
-general method
+Common methods
 
 ### updateSymbol/trade_symbol.sql
 
-Generate the trade_symbol table in the database, which will control the trading pair information of the system that can execute the transaction
+Generate the trade_symbol table in the database, which will control the pair information of the system's executable trades.
 
 ### updateSymbol/updateTradeSymbol.sql
 
-Enter the transaction pair information into the trade_symbol table
+Entering trade pair information into the trade_symbol table
 
-Some special processing has been carried out here, mainly to adapt to our situation, including only entering usdt trading pairs, not entering index-type trading pairs (such as btcdom, football, etc.)
+There is some special handling here, mainly to suit our situation, including only entering usdt pairs and not index pairs (e.g. btcdom, football).
 
-Most of the fields here are designed to cooperate with another project, professional manual tools, and the data fields used for quantification are actually only symbol, status
+Most of the fields here are designed to work with another project, the Professional Handler, and the only data fields used for quantitative purposes are actually symbol and status.
 
 ### simpleTrade
 
-A most basic trading demonstration program, when a certain trading pair has a position value of 0 and a one-minute increase > 1%, open a long position, and when his position value > 0 and a one-minute decline is less than -0.5%
+A basic trading demo, open long when a pair has a position value of 0 and a one-minute gain of >1%, close long when it has a position value of >0 and a one-minute loss of less than -0.5%.
 
-If you are a novice, it is recommended to pay attention to the updateSymbolInfo() function, price accuracy, quantity accuracy, and the maximum number of liquidated positions should be the most common problems that novices will encounter.
+If you are a novice, it is recommended to pay attention to updateSymbolInfo () this function, price accuracy, quantity accuracy, the maximum number of closed positions should be a novice will encounter the most problems.
 
-## Data processing part
+## Data processing section
 
 ### wsServer.cpp
 
-matching server
+Summary Server
 
-All data will be imported here, and some multi-source data will judge whether to update the data according to the update timestamp of the data. Use the following command line to compile it into an executable file
+All data will be aggregated here, some multi-source data will be updated according to the update timestamps that come with the data to determine whether to update that piece of data, using the following command line can be compiled into an executable file
 
 g++ wsServer.cpp -o wsServer.out -lboost_system
 
-The source code uses two libraries, one is websocketpp and the other is boost
+The source code uses two libraries, one for websocketpp and one for boost.
 
 ### dataPy/uploadDataPy
 
-Upload the program from an Alibaba Cloud master server to each corresponding Alibaba Cloud server, run it, and then destroy it.
+Uploads the application from a single AliCloud master server to each corresponding AliCloud server, runs it, and then destroys it.
 
-Here only show the use of three data entry programs, tick, oneMinKlineToWs, specialOneMinKlineToWs, other programs are the same
+Only tick, oneMinKlineToWs and specialOneMinKlineToWs are shown here, and the same applies to other apps.
 
-The program can simply and quickly release distributed running programs, and run and destroy them on the cloud on all servers that meet the naming rules.
+This procedure can be simple and fast release of distributed running procedures to all servers that meet the naming rules on the cloud run and destroy.
 
-Before use, you need to name the Alibaba Cloud server uniformly, such as tickToWs_1, tickToWs_2...
+Before using it, you need to unify the AliCloud servers into a unified name, such as tickToWs_1,tickToWs_2...
 
-Before using, upload the file locally to a master server, and then run the program on the master server. After normal operation, all hard disks including the master server and the actual running server should be overwritten with the information of the source file.
+Before use, upload files from local to one of the master servers, then run the program on the master server, after normal operation, including the master server and the actual running server on all the hard drives should be overwritten with the information of the source file.
 
-The program will call the get_aliyun_private_ip_arr_by_name function to search for the private network address of the Alibaba Cloud server in the corresponding character field, upload it, execute it, and judge whether it is running normally after three seconds
+The program will call the get_aliyun_private_ip_arr_by_name function to search for the private address of the Aliyun server in the corresponding character segment, then upload it, execute it, and judge whether it is running normally after three seconds.
 
-If it is running normally, the hard disk data will be overwritten and destroyed afterwards to prevent confidential data from leaking, and only the program will be kept running in the memory
+If it is running normally, it will overwrite and destroy the data on the hard disc to prevent confidential data leakage, and only keep the programme running in the memory.
 
-Since it is an operation of a private network address, the program needs to be executed on the Alibaba Cloud server in the same region
+Since this is a private address operation, it is necessary to execute the programme on the AliCloud server in the same region.
 
 ### dataPy/oneMinKlineToWs.py
 
-The program belongs to the distributed operation architecture, and only needs standardized naming to expand the server infinitely and reduce the delay
-![image](https://github.com/Melelery/c-binance-future-quant/assets/139823868/801409a3-25b7-41c8-b795-d7aa0efd0fe6)
+The program is a distributed operation architecture, only need to standardise the naming can be unlimited expansion of servers to reduce latency
+! [image](https://github.com/Melelery/c-binance-future-quant/assets/139823868/801409a3-25b7-41c8-b795-d7aa0efd0fe6)
 
-Slowly updated 1-minute K-line data reading program
+Slowly updating 1-minute K-line data readers
 
-Every time the program runs, it will send the total number of current transaction pairs to the ws server.
+Each time the program runs, it sends the total number of current pairs to the ws server.
 
-Every time before reading kline data, a transaction pair number will be obtained from the ws server. At the same time, the ws server will perform a +1 operation on the number to ensure that when the distributed architecture is used, each extended oneMinKlineToWs can read the kline data of the transaction pair in the best order.
+Every time before reading kline data, it will get a pair number from ws server, while taking it, ws server will perform +1 operation on the number to make sure that in distributed architecture, every extension oneMinKlineToWs can read kline data of pairs in the best order.
 
-Since Binance’s k-line data update delay is slightly higher than that of tick data, the k-line data comes from the database, and the tick data comes from the cache. At the same time, the delay of a single symbol will be lower than the information of all transaction pairs, so each transaction will be read again before each update to correct the last k-line data.
+Since CoinSecurity's kline data update latency is slightly higher than tick data, kline data is sourced from the database while tick data is sourced from the cache, and the latency of a single symbol is lower than that of all the pair information, the pair's individual tick data will be read again before each update to correct the last kline data.
 
-The kline data will send data to the ws server twice, once for all the read data. For example, when reading the kline, set limit=45, that is, read the data of the latest 45 klines, but obviously, the data of the first 43 items are always unchanged, so the transaction server only needs a long time (30 seconds/1 minute...) to correct once. Only the latest two data have a high probability of change and need to be read in real time.
+The kline data will be sent to the ws server twice, once for all the data read, for example, when reading the kline, set limit=45, that is, read the last 45 kline data, but obviously, the data of the previous 43 is always the same, so the trading server will only need to take a long time (30 seconds / 1 minute...) Only the latest two data have a high probability of change and need to be read in real time.
 
-So I split it into two pieces of information, one is the first two klines, and the other is all klines. The first two klines are used for real-time reading by the trading server.
+So I split it into two messages, one for the first two klines and one for all klines. The first two klines are used for real-time reading and real-time updating by the trading server, while the last two ends are used for calibration after a certain time interval.
 
-Reducing the length of the message will greatly help the time it takes for the trade server to parse the message.
+Reducing the length of the message is extremely helpful for the time used by the trading server to parse the message.
 
-The k-line at other time intervals, such as 5 minutes, 15 minutes, 1 hour, etc., is also the same as the process of reading and entering the ws server. It can be realized by simply replacing the parameters in the file, so it will not be listed here
+Other time intervals, such as 5 minutes, 15 minutes, 1 hour, etc., can also be read and entered into the ws server in the same way, simply by replacing the parameters in the file, so they are not listed here.
 
 ### dataPy/specialOneMinKlineToWs.py
 
-The program belongs to the distributed operation architecture, and only needs standardized naming to expand the server infinitely and reduce the delay
+This program is a distributed operation architecture, just need to standardise the naming can be infinitely scalable servers to reduce latency
 
-Quickly updated 1-minute K-line data reading program
+Rapidly updating 1-minute K-line data readers.
 
-The difference from the above is that the reading data here has a pre-trading volume condition. You can understand that my quantitative system will only open a position when it meets the requirements of a certain trading volume condition. Therefore, for this part of the trading pairs that may open a position, a server dedicated to reading data has been laid.
+Unlike the above, the reading of data here has a pre-volume condition, you can understand that my quantitative system will only open a position if it meets the requirements of a certain volume condition, so for this part of the trading pairs that may open a position, laying a special server to read the data.
 
-Assuming that there were originally 200 trading pairs read in turn, after the restriction, it becomes 20 trading pairs, which means that the data read data of your single machine has increased by 10 times
+Suppose there were 200 trading pairs to read in turn, after the restriction, it becomes 20 trading pairs, then it is equal to your individual machine data reading data increased by 10 times!
 
-This is just a display program. In fact, you should write corresponding conditions according to your trading conditions to limit the trading pairs for data reading.
+This is only a demonstration of the programme, in fact, you should be based on your trading conditions to write their own conditions, to limit the data read by the trading pairs.
 
-The k-line at other time intervals, such as 5 minutes, 15 minutes, 1 hour, etc., is also the same as the process of reading and entering the ws server. It can be realized by simply replacing the parameters in the file, so it will not be listed here
+Other time intervals such as 5 mins, 15 mins, 1 hour, etc. can be read and fed into the ws server in the same way, by simply replacing the parameters in the file, so they are not listed here.
 
 ### dataPy/tickToWs.py
 
-The program belongs to the distributed operation architecture, and only needs standardized naming to expand the server infinitely and reduce the delay
+This is a distributed architecture, so it only needs standardised naming to scale servers infinitely and reduce latency.
 
-The tick data reading program will read the number of all tick servers on Alibaba Cloud, and then automatically lock the server for data reading within a certain period of time within one second
+The tick data reading program will read all the tick servers on AliCloud, and then automatically lock the servers to read the data within a certain period of time within one second.
 
-For example, now we have opened five tick servers, then the tick 1 server will read data within the period of >=0 <200 milliseconds per second, and the tick 2 will read data within the period of >=200 <400 milliseconds per second...and so on
+Let's say we have five tick servers up and running, then tick 1 will read the data in the >=0 < 200 milliseconds time period every second, tick 2 will read the data in the >=200 < 400 milliseconds time period every second... And so on.
 
-After the tick data is imported into the ws server, the trading program reads this part and mainly uses it to correct the highest price, the lowest price and the latest price of the latest kline.
+After the tick data is imported to the ws server, the trader reads this part mainly for correcting the highest, lowest and latest price of the latest kline.
 
-###dataPy/useData.py
+### dataPy/useData.py
 
-It shows how to get the one min kline data and tick data from the ws server, and how to combine them locally to maintain a k-line data. Here, it can also be extended to add data such as trade vol. The principle is the same, so it will not be shown again
+shows how to take one min kline data and tick data from the ws server, and then put them together locally to maintain a kline data, which can be extended to include trade vol and other data, the principle is the same, so we don't show it again.
 
-## Key operation part
+## Key operations section
 
 ### binanceOrdersRecord.py
 
-Record orders information to facilitate subsequent analysis, for example, you can analyze the total transaction ratio of outgoing orders through the records of orders, etc.
+Record the orders information for subsequent analysis, for example, you can use the orders record to analyse the total percentage of outgoing orders and so on.
 
 ### binanceTradesRecord.py
 
-Record trades information to facilitate subsequent analysis, for example, the total transaction volume can be calculated through trades, etc.
+Record trades information for subsequent analysis, e.g. total volume can be calculated from the trades record, etc.
 
 ### checkTimeoutOrders.py
 
-Check if there is an overtime order and cancel it. At the same time, some transaction operations can be added. For example, if the maker’s pending order exceeds the number of seconds without a transaction, it will be converted into a take order in proportion
+Checks if there are timeout orders and cancels them, at the same time you can attach some trading operations, such as maker pending orders for more than a number of seconds without a transaction will be converted into a proportional take orders
 
-Because it is necessary to call the api of Binance to obtain all pending orders, and the api has a very high weight, in order to meet more sensitive scanning, my five trading servers run webserver programs at the same time, and checkTimeoutOrders will read all pending orders from the five trading servers in turn.
+Since you need to call CoinSafe's api to get all pending orders, and the weight of this api is very high, in order to meet the more sensitive scanning, my five trading servers are running webserver programs at the same time, checkTimeoutOrders will take turns to read all the pending orders from the five trading servers.
 
-###commission.py
+### commission.py
 
-Record all capital flows, this is the most important data, through which you can calculate the handling fee, profit, capital cost and other data
+Records all the money flow, this is the most important data, through which you can calculate the commission, profit, capital costs and so on.
 
-Due to the large amount of data accumulated by the commission for a long time, there are two tables here, one is a continuous recording table, and the other is a 24-hour temporary recording table.
+Because of the large amount of data accumulated by commission over a long period of time, there are two tables here, one for continuous recording and one for 24-hour temporary recording.
 
-The temporary table recorded for 24 hours is mainly used to analyze the loss situation of the latest day, so as to control the risk of the trading system
+The 24-hour temporary table is mainly used to analyse the latest day's losses, so as to give the trading system for risk control.
 
-For example, the following code
-```
-for key in fourHoursProfitObj:
-     if fourHoursProfitObj[key]<=-150 or oneDayProfitObj[key]<=-1800:
-         banSymbolArr.append(key)
+For example, this code
+``
+for key in fourHoursProfitObj:: if fourHoursProfitObj
+    if fourHoursProfitObj[key]<=-150 or oneDayProfitObj[key]<=-1800:: banSymbolArr[key]<=-150
+        banSymbolArr.append(key)
 
-if allOneDayProfit<=-3000:
-     banSymbolArr = ["ALL"]
-```
-When the four-hour profit of a trading pair is less than 150u or the 24-hour profit is less than 1800u, it will send a list of prohibited trading pairs to the ws server. When the total profit of all trading pairs is less than -3000u, all transactions will be suspended directly.
+if allOneDayProfit<=-3000: banSymbolArr.append(key).
+    banSymbolArr = ["ALL"]
+``
+When a pair is read with a four-hour profit of less than 150u or a 24-hour profit of less than 1800u, a list of forbidden pairs is sent to the ws server, and when the total profit of all pairs is less than -3000u, all trading is suspended directly.
 
 ### getBinancePosition.py
 
-Obtain Binance position and balance information through the /fapi/v2/account interface, and upload it to port 80 of this server, and ws service
+Get Binance position and balance information through the /fapi/v2/account interface and upload it to port 80 of this server and the ws service.
 
-The information uploaded to the ws server will be compared with the update timestamp of the information obtained by positionRisk and wsPosition, and the latest information will be selected and sent to the transaction server
+The information uploaded to the ws server will be compared with the updated timestamps of the positionRisk and wsPosition information, and the latest information will be selected and sent to the trading server.
 
-Other servers read json files through port 80 to obtain data. The scheme used in the old version uses ws later, but it is retained here
+The other servers read the json file on port 80 to get the data, the old version of the scheme, later adopted the ws but retained here
 
 ### positionRisk.py
 
-Obtain Binance position and balance information through the /fapi/v2/positionRisk interface, and the others are the same as above
+Get position and balance information via /fapi/v2/positionRisk interface, same as above.
 
 ### wsPosition.py
 
-Obtain Binance position and balance information through the websocket interface, and the others are the same as above
+Get position and balance information via websocket interface, same as above.
 
-###makerStopLoss
+### makerStopLoss
 
-After reading the position information from the ws server, read the Binance interface pending order information of the currency. The reason why all symbol pending order information is not used is because the weight is too high, which will cause the stop loss to be too slow.
+After reading the position information, the ws server reads the CoinSafe interface pending order information for that coin. The reason why we don't use pending order information for all symbols is because the weight is too high, which can cause the stop loss to be too sluggish.
 
-When the maximum value of the position changes by more than 5%, the maximum stop loss order is placed. The presentation file is written with 5% of the cost price as the initial stop loss price, and it is split into five orders, and the price of each order is increased by 0.5% for stop loss to prevent the impact of depth
+At the same time as the maximum value of the position has changed by more than 5%, the maximum stop-loss order is hung, the demo file is written to 5% of the cost price as the initial stop-loss price, and split into five orders, each order to increase the price of the stop-loss backward by 0.5%, to prevent the impact of the depth of the
 
-Example: The current position is 1000u, and there is a stop loss order. When the position increases to 1001u, the system will not reset the stop loss, because it does not satisfy the situation that the quantity changes > 5%. Too sensitive reset will cause weight loss and other problems
+Example: Now the position is 1000u, there is a stop loss order, then when the position is increased to 1001u, the system will not reset the stop loss, because it does not meet the number of changes > 5%, too sensitive to reset the weight will be consumed and so on.
 
-If it is increased to 1060u, then five stop loss orders will be reset. The initial stop loss price is 5% of the cost price, and each subsequent stop loss order is 5.5%, 6%, 6.5%, 7%,
+If it increases to 1060u, then it will reset five stop-loss orders, the initial stop-loss price is 5% of the cost price, and each subsequent stop-loss order will be 5.5%, 6%, 6.5%, 7%, in that order.
 
-After the new stop loss is set, the system will read the pending order to check whether it is successful, and the old stop loss order will be canceled only after the confirmation is successful.
+After the new stop loss is set, the system will read the pending order to check if it is successful, and only after confirming the success will the old stop loss order be cancelled.
 
 
-## Security risk control part
+## Security and wind control part
 
-Since the source code of the program will contain sensitive information, it is recommended to use the dataPy/uploadDataPy upload method to upload, run, and destroy the file in a unified manner, so that it can only run in the memory and cover all the program information stored on the hard disk, and only keep the source code in the local segment.
+As the source code of the programme will carry sensitive information, it is recommended to use the upload method of dataPy/uploadDataPy to unify the uploading, running and destroying of the files, so as to achieve the purpose of running in the memory only and covering all the stored programme information in the hard disk, and keeping the source code in the local section only.
 
-It is recommended to close all external ports of Alibaba Cloud. When purchasing a server, choose to place all servers under the unified private network prefix IP, so that the functions can be operated normally and communicate with each other while closing the external network port. If it is not under the unified private network prefix IP, you need to add the corresponding private network IP to the security group of some servers
+It is recommended to close all external ports of Aliyun, and put all servers under the unified private prefix IP when purchasing servers, so that normal operation and interoperability can be achieved while closing external ports, if not under the unified private prefix IP, then you need to add the corresponding private IP to the security group of some servers.
 
-When you need to operate the server, add the local IP to the security group, and delete it immediately after use
+When you need to operate the server, add the local IP to the security group, and delete it immediately after use.
 
-It is recommended to bind Binance's api to the IP of the server
+It is recommended that CoinSafe's api binds to the server's IP.
 
-It is recommended to keep the operating system updated
+It is recommended to keep the operating system up-to-date.
 
 # FAQ
 
-## 1. Why not backtest with historical data first
+## 1. Why don't you use historical data to backtest first?
 
-In fact, it has been three years since I personally explored and quantified.
+In fact, I have been exploring quantitative research for three years.
 
-The method of fitting a broken line after backtesting with historical data is not untried.
+It is not true that I haven't tried to fit a line out after backtesting with historical data.
 
-However, it may be more difficult for the backtest environment to be consistent with the real offer than most people currently estimate. What I mean by consistency is absolute consistency. Any small difference will actually be magnified throughout the whole process to an unacceptable level in the end.
+But backtesting the environment to do with the real market consistent with the difficulty may exceed the current estimates of most people, I said consistent is absolutely consistent, any small differences in the whole process will actually be amplified to the extent that you can not accept the end.
 
-And there is a problem that it is impossible to verify whether the difference in profit or loss is caused by errors or strategies.
+And there is the problem of not being able to verify whether the difference in profit and loss is due to error or strategy.
 
-Because it is very likely that by the time you end the project, there will still be dozens of errors that you have not discovered, and it is not possible to quantify the possibility of determining the profit and loss caused by these errors.
+Because it is very likely that by the time you finish the project, there will still be dozens of places where you did not find errors, and do not have the possibility of quantitatively judging the profit and loss caused by these errors.
 
-Of course, this is a conclusion based on my ability and perspective.
+Of course this is a conclusion based on my ability and perspective.
 
-So since the last six months, my thinking has been to go directly to the real offer, even if it is a small fund verification, and adjust the parameters based on the data of the real offer
+So since the last six months, my thinking is directly on the real market, even if it is a small amount of money to verify the data based on the real market to adjust the reference
 
-## 2. There is some possibility of performance improvement
+## 2. Partially there is the possibility of performance improvement
 
-Yes, since this is a personal project, I have a lot going on.
+Yes, because this is a personal project, I have to be responsible for a lot of things.
 
-So for some places that do not need to pursue performance, I will use the simplest way of writing.
+So for some places where I don't need to pursue performance, I will use the simplest way to write them.
 
-For example, orders and trades are entered into the database by comparing the latest 1,000 data, and inserting if there are no duplicates. Of course, there is a way of writing with better performance, but it doesn’t make much sense to me, so I didn’t spend time improving it.
+For example, orders and trades are entered into the database by comparing the last 1,000 entries and inserting any duplicates. Of course, there is a better way to write this, but it doesn't make a lot of sense to me, so I didn't take the time to improve it.
 
-Why it doesn't make much sense, because the ratio of cpu and memory usage did not exceed 50% during the operation of the entire mysql system with the lowest configuration.
+Why is not significant, because I use the lowest configuration mysql whole system running process cpu and memory use ratio is not more than 50%.
 
-Most of my energy is focused on data entry and transaction performance optimization, ignoring the optimization of post-transaction data pull analysis, as long as the final result is correct.
+Most of my energy is focused on data entry, transaction performance optimisation, while ignoring the post-transaction data pulling and analysis of the optimisation of this piece, this piece as long as the final result is right.
 
-The process after the transaction, whether it consumes 1 performance or 100 performances, as long as it does not reach the peak value of my hardware, I will not seek to change it
+The post-trade process, whether it consumes 1 performance or 100, as long as it doesn't reach the peak of my hardware, I'm not looking to change it!
