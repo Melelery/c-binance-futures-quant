@@ -11,7 +11,8 @@ import socket
 import decimal
 import datetime
 import string
-
+from config import *
+from commonFunction import FunctionClient
 FUNCTION_CLIENT = FunctionClient(larkMsgSymbol="updateTradeSymbol",connectMysql =True)
 
 sql = "truncate table trade_symbol" 
