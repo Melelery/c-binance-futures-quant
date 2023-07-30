@@ -1,6 +1,7 @@
 #!/usr/bin/python3.10
 # coding=utf-8
 import time
+import json
 import requests
 from config import *
 from commonFunction import FunctionClient
@@ -40,11 +41,13 @@ url = "https://fapi.binance.com/fapi/v1/ticker/bookTicker"
 tickerData = requests.request("GET", url,timeout=(1,1),headers={}).json()
 findBinanceIndex(tickerData)
 
+REQUESTS_SESSION = requests.Session()
+
 def tickToWs():
-    global TRADE_SYMBOL_DATA,FUNCTION_CLIENT
+    global TRADE_SYMBOL_DATA,FUNCTION_CLIENT,REQUESTS_SESSION
     nowTs = int(time.time())
     url = "https://fapi.binance.com/fapi/v1/ticker/bookTicker"
-    tickerData = requests.request("GET", url,timeout=(3,3),headers={}).json()
+    tickerData =  json.loads(REQUESTS_SESSION.get(url,timeout=(1,1)).content.decode())
 
     if 'code' in tickerData:
         FUNCTION_CLIENT.send_lark_msg_limit_one_min(str(tickerData))
@@ -92,6 +95,8 @@ for i in range(len(TICK_PRIVATE_IP_ARR)):
 
 oneServerOneSecondRequestsTime  = 8
 
+requestsLimitTs = 1000/oneServerOneSecondRequestsTime
+
 for a in range(len(TICK_PRIVATE_IP_ARR)):
     for b in range(oneServerOneSecondRequestsTime):
         nowMillisecondLimitAllArr[a].append([int(a*1000/len(TICK_PRIVATE_IP_ARR)/oneServerOneSecondRequestsTime+1000/oneServerOneSecondRequestsTime*b),int((a+1)*1000/len(TICK_PRIVATE_IP_ARR)/oneServerOneSecondRequestsTime+1000/oneServerOneSecondRequestsTime*b)])
@@ -107,16 +112,20 @@ FUNCTION_CLIENT.send_lark_msg_limit_one_min("start")
 
 errorTime = 0
 
+lastRequestTs = 0
+
 while 1:
     FUNCTION_CLIENT.update_machine_status()
-    nowSecond = int(time.time())%60
-    nowMillisecond = int(time.time()*1000)%1000
+    nowTs = int(time.time()*1000)
+    nowSecond = nowTs%60000
+    nowMillisecond = nowTs%1000
     try:
         nowRequests = False
         for i in range(len(nowMillisecondLimitArr)):
             if nowMillisecondLimitArr[i][0]<=nowMillisecond and  nowMillisecondLimitArr[i][1]>nowMillisecond:
                 nowRequests = True
-        if nowRequests:
+        if nowRequests and nowTs - lastRequestTs>=requestsLimitTs:
+            lastRequestTs = nowTs
             tickToWs()
         errorTime = 0
     except Exception as e:

@@ -3,6 +3,7 @@
 import time
 import requests
 import traceback
+import json
 from config import *
 from commonFunction import FunctionClient
 
@@ -32,17 +33,19 @@ sendStr = "bbboiyfpdufiyuyu"+str(len(TRADE_SYMBOL_ARR))
 FUNCTION_CLIENT.send_to_ws_a(sendStr)
 
 
+REQUESTS_SESSION = requests.Session()
+
 def klineToWs(tradeSymbolObj):
-    global TRADE_SYMBOL_DATA,FUNCTION_CLIENT
+    global TRADE_SYMBOL_DATA,FUNCTION_CLIENT,REQUESTS_SESSION
 
     url = "https://fapi.binance.com/fapi/v1/klines?symbol="+tradeSymbolObj["symbol"]+"&interval=1m&limit=45"
-    klineData = requests.request("GET", url,timeout=(3,3),headers={}).json()
+    klineData = json.loads(REQUESTS_SESSION.get(url,timeout=(1,1)).content.decode())
     if 'code' in klineData:
         FUNCTION_CLIENT.send_lark_msg_limit_one_min(str(klineData))
     else:
         try:
             url = "https://fapi.binance.com/fapi/v1/depth?symbol="+tradeSymbolObj["symbol"]+"&limit=5"
-            depthData = requests.request("GET", url,timeout=(3,3)).json()
+            depthData = json.loads(REQUESTS_SESSION.get(url,timeout=(1,1)).content.decode())
         except Exception as e:
             ex = traceback.format_exc()
             FUNCTION_CLIENT.send_lark_msg_limit_one_min(str(ex))
