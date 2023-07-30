@@ -68,6 +68,17 @@ So if it is the capital side of the cooperation, my expectations are 1. the amou
 
 Personally, I prefer to have a stable job opportunity or outsourcing project opportunity, I will start after accumulating my own!
 
+2023.07.28, these three days while waiting for the next reply from several investors, by the way, I designed a system to track my strategy skeleton, under different parameters of the factor of live real-time trading.
+
+Because high-frequency trading only requires a short period of data to confirm the validity of the parameter factors.
+
+Personally, I feel that this is more realistic compared to backtracking, and the default parameters can be infiltrated into one of the fuzzy comparisons, even if there are some deviations in the overall system, you can still effectively explore the factor parameters!
+
+
+[ ​C QUANT ](http://8.218.235.38/#/)
+
+[Exploration of a self-built high-frequency simulation aggregation engine](https://zhuanlan.zhihu.com/p/646842999)
+
 # Environment and startup
 
 Our live project runs on Ubuntu 22.04 64-bit, Python 3.10.6.
