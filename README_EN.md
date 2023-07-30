@@ -74,7 +74,11 @@ Because high-frequency trading only requires a short period of data to confirm t
 
 Personally, I feel that this is more realistic compared to backtracking, and the default parameters can be infiltrated into one of the fuzzy comparisons, even if there are some deviations in the overall system, you can still effectively explore the factor parameters!
 
-http://8.218.235.38/#/
+
+[ ​C QUANT ](http://8.218.235.38/#/)
+
+[Exploration of a self-built high-frequency simulation aggregation engine](https://zhuanlan.zhihu.com/p/646842999)
+
 # Environment and startup
 
 Our live project runs on Ubuntu 22.04 64-bit, Python 3.10.6.
