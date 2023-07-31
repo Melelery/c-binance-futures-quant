@@ -8,6 +8,15 @@ You can use it to implement your trading logic in a simple, low-cost way, which 
 
 If you are willing to read all the information in this readme in detail, especially [Module Detailed Analysis](#Module-detailed-analysis), then it will also be a book on Binance Contracts trading risk control, experience and understanding of the design architecture, and summarizes almost all my successes and failures.
 
+I track the skeleton of the strategy I maintain, under different parameters and factors of the live real-time trading display page
+
+[ C QUANT ](http://8.218.235.38/#/)
+
+My other articles
+
+[Exploration of a self-built high-frequency simulation aggregation engine](https://zhuanlan.zhihu.com/p/646840989)
+
+[Exchange Interface Latency Analysis](https://zhuanlan.zhihu.com/p/647035185)
 
 # Advantage
 
