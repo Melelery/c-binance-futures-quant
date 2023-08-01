@@ -2,8 +2,6 @@
 
 It is the structure of Binance Futures, with more than $10 billion in trading volume and more than a year of real-time verification, including data entry, risk control, trading, data analysis, but does not include specific strategies.
 
-Front-end demo address: temporarily down, currently in the design of a new set of demo solutions, is expected to July 28th online!
-
 You can use it to implement your trading logic in a simple, low-cost way, which makes extensive use of AliCloud servers for distributed architecture, multi-processing, and Flybook for exception reporting and transaction information disclosure.
 
 If you are willing to read all the information in this readme in detail, especially [Module Detailed Analysis](#Module-detailed-analysis), then it will also be a book on Binance Contracts trading risk control, experience and understanding of the design architecture, and summarizes almost all my successes and failures.
