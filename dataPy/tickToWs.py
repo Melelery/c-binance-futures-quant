@@ -43,19 +43,24 @@ findBinanceIndex(tickerData)
 
 REQUESTS_SESSION = requests.Session()
 
+
+def takeElemZero(elem):
+    return elem["symbol"]
+
 def tickToWs():
     global TRADE_SYMBOL_DATA,FUNCTION_CLIENT,REQUESTS_SESSION
     nowTs = int(time.time())
     url = "https://fapi.binance.com/fapi/v1/ticker/bookTicker"
     tickerData =  json.loads(REQUESTS_SESSION.get(url,timeout=(1,1)).content.decode())
-
+    beginTs = int(time.time()*1000)
+    tickerData.sort(key=takeElemZero,reverse=False)
     if 'code' in tickerData:
         FUNCTION_CLIENT.send_lark_msg_limit_one_min(str(tickerData))
     else:
         sendPriceStr = ""
         sendTs= tickerData[0]["time"]
-        for a in range(len(TRADE_SYMBOL_ARR)):
-            binanceIndex = TRADE_SYMBOL_ARR[a]["binanceIndex"]
+        for item in TRADE_SYMBOL_ARR:
+            binanceIndex = item["binanceIndex"]
 
             if binanceIndex==-1:
                 if sendPriceStr=="":
@@ -64,9 +69,9 @@ def tickToWs():
                     sendPriceStr =  sendPriceStr+"~0"
             else:
 
-                if TRADE_SYMBOL_ARR[a]["symbol"]!=tickerData[binanceIndex]["symbol"]:
+                if item["symbol"]!=tickerData[binanceIndex]["symbol"]:
                     findBinanceIndex(tickerData)
-                    binanceIndex = TRADE_SYMBOL_ARR[a]["binanceIndex"]
+                    binanceIndex = item["binanceIndex"]
 
                 if tickerData[binanceIndex]["time"]>sendTs:
                     sendTs = tickerData[binanceIndex]["time"]
@@ -76,12 +81,14 @@ def tickToWs():
                     sendPriceStr =  sendPriceStr+"~"+tickerData[binanceIndex]["askPrice"]+"^"+tickerData[binanceIndex]["bidPrice"]+"^"+FUNCTION_CLIENT.turn_ts_to_min(tickerData[binanceIndex]["time"])
 
 
+        endTs = int(time.time()*1000)
+
         if sendPriceStr=="":
             FUNCTION_CLIENT.send_lark_msg_limit_one_min("sendPriceStr==null:"+str(tickerData))
         else:
             tickSendStr = "sjaoihsoaitowljd"+str(sendTs)+sendPriceStr
             FUNCTION_CLIENT.send_to_ws_a(tickSendStr)
-
+        print(endTs - beginTs)
 
 errorArr = []
 for i in range(60):
@@ -129,6 +136,7 @@ while 1:
             tickToWs()
         errorTime = 0
     except Exception as e:
+        print(e)
         now = int(time.time())
 
         errorTime = errorTime+1
