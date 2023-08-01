@@ -12,6 +12,8 @@ I track the skeleton of the strategy I maintain, under different parameters and 
 
 My other articles
 
+[10ms, python+aliyun, not beautiful, but practical](https://zhuanlan.zhihu.com/p/647402709)
+
 [Exploration of a self-built high-frequency simulation aggregation engine](https://zhuanlan.zhihu.com/p/646840989)
 
 [Exchange Interface Latency Analysis](https://zhuanlan.zhihu.com/p/647035185)
