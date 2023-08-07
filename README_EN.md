@@ -67,21 +67,23 @@ I've been doing this for almost a month and a half, and the apr of $10,000 is ab
 ![微信图片_20230715195116](https://github.com/Melelery/c-binance-future-quant/assets/139823868/b63e8822-5cf7-4dcf-82ac-33a6cddbf375)
 The chart was 750usd principal for the first three days, 10kusd until June, and gradually rose to 50kusd later on
 
-I couldn't keep the MM3 market maker at the back, and wanted to try to switch to take strategy, but it didn't work out, including the current webpage showing the take strategy, and I was cut off from funding.
+I couldn't keep the MM3 market maker at the back, and wanted to try to switch to take strategies, but it didn't work out, including the current webpage showing take strategies, and I was cut off from funding.
 
 So I'm open-sourcing the structure in the hope that I can find some opportunities, including funding or jobs, but not involving my own strategy.
 
-At present, there are already a few friends of the marketer resources contact me, with marketer account needs trading volume, without marketer account needs commission rate, if you also have the marketer resources to match the demand can contact me.
+At present, I already have a few friends who have market maker resources to contact me, those who have market maker accounts need trading volume, and those who do not have market maker accounts need commission rates, if you also have market maker resources to match the needs of you can contact me.
 
-There are also capital contacts, but the conditions mentioned by the capital slightly more than my psychological expectations, 1 is the need to run in each other's accounts, which represents the data exposed, 2 is divided, before I was 7 3 open, currently contacted are 2 8, 3 7, three is the capital capacity, I do not do the strategy of the capital capacity is not large (peak in the 30 ~ 500,000 U.S. dollars, depending on the account of the marketer level)
+We are already testing with a capitalist.
 
-So if it is the capital side of the cooperation, my expectations are 1. the amount of funds do not need to be too high, 1 ~ 100,000 U.S. dollars, 2. need to run in our account or your side has the Coin MM5 marketer resources, 3. the share of this can be made concessions, depending on the resources, the resources are good in the case of the 3 7 will be able to do.
+So if it's a funders co-operation, my expectation is that
 
-Personally, I prefer to have a stable job opportunity or outsourcing project opportunity, I will start after accumulating my own!
+1. The amount of funds in the early stage does not need to be too high, 1 ~ 100,000 U.S. dollars, the later demand for 500,000 U.S. dollars
 
-2023.07.28, these three days while waiting for the next reply from several investors, by the way, I designed a system to track my strategy skeleton, under different parameters of the factor of live real-time trading.
+2. need to run in our account or you have the CoinAn MM5 market maker resources, here is the focus of the contradiction, the funds in your place I think there is an early withdrawal of funds, data leakage and other risks, the funds in my place there is the risk of insecurity of your funds, so the need for effective, long negotiations
 
-Because high-frequency trading only requires a short period of data to confirm the validity of the parameter factors.
+2023.07.28, these three days in waiting for the next reply of several investors, by the way to design a system to track my strategy skeleton, in different parameters under the factor of real-time trading situation.
+
+Because high-frequency trading requires only a short period of data to confirm the validity of the parameter factors.
 
 Personally, I feel that this is more realistic compared to backtracking, and the default parameters can be infiltrated into one of the fuzzy comparisons, even if there are some deviations in the overall system, you can still effectively explore the factor parameters!
 
