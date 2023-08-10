@@ -8,9 +8,6 @@ If you are willing to read all the information in this readme in detail, especia
 
 I track the skeleton of the strategy I maintain, under different parameters and factors of the live real-time trading display page
 
-[ ​C QUANT Simulation](http://8.218.235.38/#/)
-
-[ ​C QUANT Real](http://8.218.235.38/#/CQuant)
 
 My other articles
 
