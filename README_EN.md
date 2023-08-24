@@ -17,6 +17,11 @@ My other articles
 
 [Exchange Interface Latency Analysis](https://zhuanlan.zhihu.com/p/647035185)
 
+my high-frequency live 
+[C Quant club] (http://c-quant.club/#/CQuant)
+
+Receive funds, $10,000 to $300,000, expected annualisation 100% ~ 150%, 5.5 cents, monthly settlement, need to pay to my account, provide data webpage, please contact melelery if interested.
+
 # Advantage
 
 Low cost, high efficiency and simple implementation are the three advantages of this system.
@@ -43,51 +48,6 @@ For example, there are three ways to get the account balance and position data o
 
 Front-end data board, through the Ali cloud oss as an intermediary, the web page to read oss data for display, isolate the data risk
 
-# Author
-
-In 2021, I resigned from a top quantitative company to do quantitative trading, the main battlefield in the coin security, during these two years, I have been involved from market maker -> trend -> arbitrage and other types, the peak time, in the coin security a month there is close to 2 billion U.S. dollars in trading volume.
-
-By July 2023, for a variety of reasons, the general direction failed, leaving only a very small amount of money to continue to run a more stable and profitable left side trading strategy.
-
-This is a set of high efficiency, low cost data reading, entry framework explored in the past two years, and includes a set of risk control system, he is more like a structure, rather than a realisation, you can also be applied to okex, bybit, etc. through simple modification and replacement.
-
-Funding co-operation or job opportunities (do not talk about any involved strategy principles and source code, please open the door to save both sides time), please contact the micro-signal melelery 或邮件至c.binance.quant@gmail.com
-
-July 24th update additional information, not related to this open source project, may be regarded as advertising, if you do not like it, please skip!
-
-In the past few days, I've been exchanging with more than a dozen friends in addition to HR, so I'd like to unify my personal quantitative experience that everyone is most concerned about.
-
-Last year December ~ March and my friend to do the market negotiation of Coinan, MM3 account, the transaction volume can basically meet the requirements, basically only do ethereum and bitcoin, but can not carry the trend of the market, the prediction can not complete the transaction volume indicator, so the back of the idea to shift to the quantification of the pan-currency.
-
-I've been doing this for almost a month and a half, and the apr of $10,000 is about 900%, but with the increase in the amount of funds the annualised rate of decline, the apr of $50,000 is about 200% to 300%, no leverage, the maximum retracement is 25%, and the daily turnover of $50,000 is $50,000 to $1,000,000.
-
-![微信图片_20230715195116](https://github.com/Melelery/c-binance-future-quant/assets/139823868/b63e8822-5cf7-4dcf-82ac-33a6cddbf375)
-The chart was 750usd principal for the first three days, 10kusd until June, and gradually rose to 50kusd later on
-
-I couldn't keep the MM3 market maker at the back, and wanted to try to switch to take strategies, but it didn't work out, including the current webpage showing take strategies, and I was cut off from funding.
-
-So I'm open-sourcing the structure in the hope that I can find some opportunities, including funding or jobs, but not involving my own strategy.
-
-At present, I already have a few friends who have market maker resources to contact me, those who have market maker accounts need trading volume, and those who do not have market maker accounts need commission rates, if you also have market maker resources to match the needs of you can contact me.
-
-We are already testing with a capitalist.
-
-So if it's a funders co-operation, my expectation is that
-
-1. The amount of funds in the early stage does not need to be too high, 1 ~ 100,000 U.S. dollars, the later demand for 500,000 U.S. dollars
-
-2. need to run in our account or you have the CoinAn MM5 market maker resources, here is the focus of the contradiction, the funds in your place I think there is an early withdrawal of funds, data leakage and other risks, the funds in my place there is the risk of insecurity of your funds, so the need for effective, long negotiations
-
-2023.07.28, these three days in waiting for the next reply of several investors, by the way to design a system to track my strategy skeleton, in different parameters under the factor of real-time trading situation.
-
-Because high-frequency trading requires only a short period of data to confirm the validity of the parameter factors.
-
-Personally, I feel that this is more realistic compared to backtracking, and the default parameters can be infiltrated into one of the fuzzy comparisons, even if there are some deviations in the overall system, you can still effectively explore the factor parameters!
-
-
-[ ​C QUANT ](http://8.218.235.38/#/)
-
-[Exploration of a self-built high-frequency simulation aggregation engine](https://zhuanlan.zhihu.com/p/646842999)
 
 # Environment and startup
 
