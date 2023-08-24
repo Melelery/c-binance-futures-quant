@@ -19,7 +19,7 @@
 
 本人高频实盘
 
-[C Quant club]([https://zhuanlan.zhihu.com/p/647035185](http://c-quant.club/#/CQuant))
+[C Quant club] (http://c-quant.club/#/CQuant)
 
 接资金，1万美金到30万美金，预计年化 100% ~ 150%，5 5分，月结，需打款至本人账户，提供数据网页，有意请联系微信 melelery
 
