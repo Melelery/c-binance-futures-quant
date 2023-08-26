@@ -8,6 +8,20 @@ If you are willing to read all the information in this readme in detail, especia
 
 I track the skeleton of the strategy I maintain, under different parameters and factors of the live real-time trading display page
 
+Updating these languages below is scheduled for the 27th of August 2023
+
+In all honesty, I don't want to make the project public, and the most important thing you want when doing quantisation, especially in the cryptocurrency world, is to keep a low profile
+
+The purpose of my posting a series of Zhihu articles and open sourcing on github in July 2023 was because I had, in the past year, suffered the biggest Waterloo of my life, I was heavily in debt and had no choice but to seek out collaborations for a shot at survival
+
+I did get cooperation opportunities through this project, including funds and accounts, as well as a lot of friends doing high-frequency, in the mutual exchanges between the formation of a lot of inspiration for me, and integrated into my actual strategy and structure, I think these two months is the two months of my history, the fastest growth in quantitative aspects!
+
+As a result of my first time open sourcing, I accidentally compromised my personal confidence in the project and was attacked by a social worker, but the cost, including the value I brought to other people by open sourcing, was fair compared to what I got out of it!
+
+I am still grateful, so although I have got what I wanted, I will not delete the project and all the articles, now or in the future!
+
+The high-frequency system I am currently running is based on this project, but the actual latency has been optimised to less than a tenth of the open-source architecture, and will not be open-sourced, nor will the project be updated.
+
 
 My other articles
 
