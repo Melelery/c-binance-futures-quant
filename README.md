@@ -102,7 +102,7 @@ nohup ./wsServer.out >/dev/null &
 
 由于项目使用的全部库和包都是官方或者热门项目，在google可以查找到安装方式，此处不再累述如何安装环境
 
-如果需要最简启动方案，可邮件 c.binance.quant@gmail.com 联系我方，直接共享系统镜像到你方阿里云账号，收取100 USDT的技术费用
+如果需要最简启动方案，可邮件 c.binance.quant@gmail.com 联系我方，直接共享系统镜像到你方阿里云账号，收取 1000 USDT的技术费用
 
 
 # 模块详细解析
