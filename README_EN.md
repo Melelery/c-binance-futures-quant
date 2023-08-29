@@ -34,7 +34,7 @@ My other articles
 my high-frequency live 
 [C Quant club] (http://c-quant.club/#/CQuant)
 
-Receive funds, $10,000 to $300,000, expected annualisation 100% ~ 150%, 5.5 cents, monthly settlement, need to pay to my account, provide data webpage, please contact melelery if interested.
+Receive funds, 20,000 U.S. dollars to 500,000 U.S. dollars, the estimated annualized 100% ~ 150%, 5 5 points, loss is responsible for, the maximum retracement of 30%, at least six months of the signing, the end of the month, the need to call my account, to provide data web page, interested in contacting the WeChat melelery
 
 # Advantage
 
@@ -102,7 +102,7 @@ nohup ./wsServer.out >/dev/null &
 
 Since all the libraries and packages used in the project are official or popular projects, you can find the installation method in google, so I won't repeat how to install the environment here.
 
-If you need a minimal startup solution, you can contact us at c.binance.quant@gmail.com and we will share the system image directly to your Aliyun account for a technical fee of 100 USDT.
+If you need a minimal startup solution, you can contact us at c.binance.quant@gmail.com and we will share the system image directly to your Aliyun account for a technical fee of 1000 USDT.
 
 # Module detailed analysis
 
