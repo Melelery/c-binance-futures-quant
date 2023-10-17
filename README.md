@@ -23,18 +23,6 @@
 
 目前本人实盘运行的高频系统虽然建立在此项目的基础上，但是实际延迟已经优化到约为该开源架构的二十分之一不到，且不会开源，该项目后续亦不会再更新
 
-本人其他文章
-
-[10ms，python+阿里云，很low，但实用](https://zhuanlan.zhihu.com/p/647402281)
-
-[自建高频模拟撮合引擎的探索](https://zhuanlan.zhihu.com/p/646840989)
-
-[交易所接口延迟解析](https://zhuanlan.zhihu.com/p/647035185)
-
-本人高频实盘
-
-[C Quant club] (http://c-quant.club/#/CQuant)
-
 
 
 
